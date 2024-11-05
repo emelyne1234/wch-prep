@@ -35,7 +35,6 @@ export const options: NextAuthOptions = {
                     .where(userQuery)
                     .limit(1);
 
-
                 if (existingUser.length === 0) {
 
                     const userRole = await db
