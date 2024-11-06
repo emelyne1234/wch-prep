@@ -1,6 +1,6 @@
 import { neon } from "@neondatabase/serverless"
 import { drizzle } from "drizzle-orm/neon-http";
-import { pgTable, timestamp, uuid, varchar,text} from "drizzle-orm/pg-core";
+import { pgTable, timestamp, uuid, varchar,text, primaryKey} from "drizzle-orm/pg-core";
 import * as dotenv from "dotenv";
 
 
@@ -55,6 +55,28 @@ export const forumsComments = pgTable("forumsComments",
 
 ) 
 
+export const sessions = pgTable("sessions", {
+  session_token: varchar("session_token").primaryKey(),
+  user_id: uuid("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  expires: timestamp("expires", { mode: "date" }).notNull(),
+});
+
+export const verification_tokens = pgTable(
+  "verification_tokens",
+  {
+    identifier: varchar("identifier").notNull(),
+    token: varchar("token").notNull(),
+    expires: timestamp("expires", { mode: "date" }).notNull(),
+  },
+  (verificationToken) => ({
+    composite_pk: primaryKey({
+      columns: [verificationToken.identifier, verificationToken.token],
+    }),
+  })
+);
+
 export const articles = pgTable("articles", {
     id: uuid("id").primaryKey().defaultRandom(),
     title: varchar("title", {length: 300}).notNull(),
@@ -66,7 +88,17 @@ export const articles = pgTable("articles", {
     }),
     created_at: timestamp("creates_at").defaultNow().notNull(),
     updated_at: timestamp("updated_at").defaultNow().notNull(),
-  })
+})
+
+export const articlesComments = pgTable("articlesComments",     {
+  id: uuid("id").primaryKey().defaultRandom(),
+  articles_id: uuid("articles_id").references(() => articles.id, {onDelete: "cascade"}).notNull(),
+  user_id: uuid("user_id").references(() => users.id, {onDelete: "cascade"}).notNull(),
+  comment: text("comment").notNull(),
+  created_at: timestamp("creates_at").defaultNow().notNull(),
+  updated_at: timestamp("updated_at").defaultNow().notNull(),
+}
+)
 
   export const forumlikes = pgTable("forumlikes", {
     id: uuid("id").primaryKey().defaultRandom(),

@@ -3,11 +3,20 @@ import { db } from "@/server/db";
 import { users } from "@/server/db/schema";
 import { eq } from "drizzle-orm"
 import { HttpStatusCode } from "axios";
+import { getUserIdFromSession } from "@/utils/getUserIdFromSession";
 
 
 export async function GET(req: NextRequest, {params}: {params: {id:string}}){
 
     try{
+        const userId = await getUserIdFromSession();
+
+        if (!userId) {
+          return NextResponse.json(
+            { status: 401, message: "Unauthorized", data: null },
+            { status: HttpStatusCode.Unauthorized }
+          );
+        }
 
         const id = params.id
         const existingUser = await db.select().from(users).where(eq(users.id, id))
