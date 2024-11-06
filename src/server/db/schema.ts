@@ -106,3 +106,11 @@ export const resources = pgTable("resources", {
     created_at: timestamp("creates_at").defaultNow().notNull(),
     updated_at: timestamp("updated_at").defaultNow().notNull(),
   })
+
+export function setDefaultRoleTrigger(): any {
+  throw new Error("Function not implemented.");
+}
+export function setupAuditTriggers(): any {
+  throw new Error("Function not implemented.");
+}
+
