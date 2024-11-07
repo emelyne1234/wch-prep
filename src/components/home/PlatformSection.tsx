@@ -30,7 +30,7 @@ export const PlatformSection = () => {
         <div className="col-lg-6">
           <div className="position-relative rounded overflow-hidden shadow-lg">
             <Image
-              src="https://images.unsplash.com/photo-1557050543-4d5f4e07ef46"
+              src="/elephants 1.png"
               alt="Herd of elephants walking through savanna landscape"
               width={800}
               height={600}

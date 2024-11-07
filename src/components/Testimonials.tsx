@@ -6,21 +6,21 @@ import Image from "next/image";
 const testimonials = [
   {
     text: "Being part of the Wildlife Conservation Hub has truly been transformative. I've connected with experts globally, gained invaluable insights, and accessed educational resources that deepened my knowledge. The Hub's collaborative tools have empowered me to contribute to impactful projects, making me feel like part of a united, conservation-focused community.",
-    author: "Dr. Sarah Kim",
+    author: "Dr. Uwimbabazi Emelyne",
     role: "Wildlife Researcher",
     image:
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&h=200",
   },
   {
     text: "The platform's innovative approach to conservation has revolutionized how we collaborate on wildlife projects. The resources and community support have been invaluable.",
-    author: "John Martinez",
+    author: "Dr. Uwimana Jean Claude",
     role: "Conservation Biologist",
     image:
       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&h=200",
   },
   {
     text: "As an educator, I've found the educational resources and community engagement tools incredibly valuable for teaching the next generation about conservation.",
-    author: "Dr. Emily Chen",
+    author: "Dr. Uwamahoro Ruth",
     role: "Environmental Educator",
     image:
       "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200&h=200",

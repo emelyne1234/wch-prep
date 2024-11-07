@@ -36,7 +36,7 @@ const Footer = () => {
           <div className="col-lg-3 col-md-6">
             <div className="d-flex align-items-center gap-2 mb-3">
               <Image
-                src="/images/gorilla-logo.png"
+                src="/gorilla-icon 1.png"
                 alt="WCH Logo"
                 width={48}
                 height={48}
