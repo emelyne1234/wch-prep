@@ -1,7 +1,9 @@
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <h1>Hello world</h1>
+    <div className="container text-center my-5">
+      <h1 className="display-4">Welcome to My Bootstrap Next.js App!</h1>
+      <p className="lead">This is a simple project using Bootstrap with Next.js.</p>
+      <button className="btn btn-primary">Click Me</button>
     </div>
   );
 }
