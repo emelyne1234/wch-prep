@@ -17,6 +17,10 @@ export async function GET(req: NextRequest, {params}: {params: {id:string}}){
           );
         }
 
+        if (!params || !params.id) {
+          return NextResponse.json({ message: "Missing user ID", status: 400 }, { status: HttpStatusCode.BadRequest });
+        }
+
         const id = params.id
 
         const existingForumComments = await db.select().from(forumsComments).where(eq(forumsComments.id, id))
@@ -96,6 +100,10 @@ export async function DELETE(req: NextRequest, {params}: {params: {id:string}}){
           );
         }
 
+        if (!params || !params.id) {
+          return NextResponse.json({ message: "Missing user ID", status: 400 }, { status: HttpStatusCode.BadRequest });
+        }
+
         const id = params.id
 
         const existingComment = await db.select().from(forumsComments).where(eq(forumsComments.id, id))
@@ -125,6 +133,10 @@ export async function PATCH(req: NextRequest, {params}: {params: {id:string}}){
             { status: 401, message: "Unauthorized", data: null },
             { status: HttpStatusCode.Unauthorized }
           );
+        }
+
+        if (!params || !params.id) {
+          return NextResponse.json({ message: "Missing user ID", status: 400 }, { status: HttpStatusCode.BadRequest });
         }
 
         const id = params.id

@@ -1,6 +1,7 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
-const ConservationPlatform = () => {
+export const ConservationForum = () => {
   return (
     <div className="container py-5">
       <div className="row align-items-center">
@@ -37,4 +38,3 @@ const ConservationPlatform = () => {
   );
 };
 
-export default ConservationPlatform; 

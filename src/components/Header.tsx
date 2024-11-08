@@ -36,7 +36,7 @@ const Header = () => {
                 (item) => (
                   <li key={item} className="nav-item">
                     <Link
-                      href={`/${item.toLowerCase()}`}
+                      href={item === "Community" ? "/community" : `/${item.toLowerCase()}`}
                       className="nav-link px-4 text-gray-700 hover:text-emerald-600 transition-colors relative group">
                       {item}
                       <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-500 group-hover:w-full transition-all duration-300"></span>
@@ -44,6 +44,22 @@ const Header = () => {
                   </li>
                 )
               )}
+            </ul>
+            <ul className="navbar-nav ms-auto font-sans">
+              <li className="nav-item">
+                <Link
+                  href="/register"
+                  className="nav-link bg-success text-white px-4 py-2 rounded hover:bg-emerald-600 active:bg-emerald-700 transition-colors">
+                  Register
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  href="/login"
+                  className="nav-link bg-success text-white px-4 py-2 rounded hover:bg-emerald-600 active:bg-emerald-700 transition-colors ms-2">
+                  Login
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

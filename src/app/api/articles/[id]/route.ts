@@ -17,6 +17,9 @@ export async function PATCH(req: NextRequest, {params}: {params: {id:string}}){
             { status: HttpStatusCode.Unauthorized }
           );
         }
+        if (!params || !params.id) {
+          return NextResponse.json({ message: "Missing user ID", status: 400 }, { status: HttpStatusCode.BadRequest });
+        }
 
         const id = params.id
 
@@ -56,6 +59,10 @@ export async function DELETE(req: NextRequest, {params}: {params: {id:string}}){
             { status: 401, message: "Unauthorized", data: null },
             { status: HttpStatusCode.Unauthorized }
           );
+        }
+
+        if (!params || !params.id) {
+          return NextResponse.json({ message: "Missing user ID", status: 400 }, { status: HttpStatusCode.BadRequest });
         }
 
         const id = params.id

@@ -18,6 +18,10 @@ export async function GET(req: NextRequest, {params}: {params: {id:string}}){
           );
         }
 
+        if (!params || !params.id) {
+            return NextResponse.json({ message: "Missing user ID", status: 400 }, { status: HttpStatusCode.BadRequest });
+        }
+
         const id = params.id
         const existingUser = await db.select().from(users).where(eq(users.id, id))
     
