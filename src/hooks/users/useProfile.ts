@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import { z } from "zod";
 
 import { profileData } from "@/services/users/profile";
 import showToast from "@/utils/showToast";
 import { UpdateprofileInterface } from "@/types/user";
+import { useRouter } from "next/navigation";
 
 const initialData: UpdateprofileInterface = {
   expertise: "",
@@ -15,37 +16,39 @@ const initialData: UpdateprofileInterface = {
 };
 
 export const useUpdateProfile = () => {
-  const queryClient = useQueryClient();
   const [Data, setData] = useState<UpdateprofileInterface>(initialData);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+  const router = useRouter()
   
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-
+  const queryClient = useQueryClient();
   const updateProfileMutation = useMutation({
     mutationFn: profileData,
     onSuccess: (response) => {
-      if (response.status === "Success!") {
-        queryClient.invalidateQueries({ queryKey: ["User Profile"] });
-        setData(initialData);
-        setErrors({});
-        showToast(response.message, "success");
+      if (response.message === "Profile updated successfully") {
+          queryClient.invalidateQueries();
+          setData(initialData);
+          setErrors({});
+          showToast(response.message, "success");
+          router.push("/login");
       } else {
-        showToast(response.data.data, "error");
+          showToast(response.message, "error");
       }
-    },
-    onError: (error: unknown) => {
-      if (axios.isAxiosError(error) && error.response && error.response.data) {
+  },
+  onError: (error: unknown) => {
+    if (axios.isAxiosError(error) && error.response && error.response.data) {
         const errorData = error.response.data;
         if (errorData.data && Array.isArray(errorData.data)) {
-          showToast(errorData.data.join(", "), "error");
+            showToast(errorData.data.join(", "), "error");
         } else {
-          showToast("An unexpected error occurred.", "error");
+            showToast("An unexpected error occurred.", "error");
         }
-      } else {
+    } else {
         showToast("An unexpected error occurred.", "error");
-      }
-    },
+    }
+},
   });
 
   const handleInputChanges = async (
@@ -92,22 +95,9 @@ export const useUpdateProfile = () => {
     setData,
     handleSubmit,
     handleInputChanges,
-    isPending: updateProfileMutation.isPending,
+    isPending: updateProfileMutation.isLoading,
     handleAddressChange,
     removeImage,
     errors,
   };
 };
-// export const useProfile = () => {
-//   const initialFetchPeopleResponse: UsersResponseInterface = {
-//     status: "Loading",
-//     message: "Loading People...",
-//     data: [],
-//   };
-
-//   return useQuery({
-//     queryKey: ["User Profile"],
-//     queryFn: userProfile,
-//     initialData: initialFetchPeopleResponse,
-//   });
-// };
