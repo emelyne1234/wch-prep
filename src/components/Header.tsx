@@ -1,7 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useSession, signOut } from "next-auth/react";
 
 const Header = () => {
+  const { data: session } = useSession();
+
   return (
     <header className="position-fixed w-100 top-0 z-3 bg-white bg-opacity-95 shadow-sm">
       <nav className="navbar navbar-expand-lg py-2">
@@ -36,7 +39,11 @@ const Header = () => {
                 (item) => (
                   <li key={item} className="nav-item">
                     <Link
-                      href={item === "Community" ? "/community" : `/${item.toLowerCase()}`}
+                      href={
+                        item === "Community"
+                          ? "/community"
+                          : `/${item.toLowerCase()}`
+                      }
                       className="nav-link px-4 text-gray-700 hover:text-emerald-600 transition-colors relative group">
                       {item}
                       <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-500 group-hover:w-full transition-all duration-300"></span>
@@ -46,20 +53,32 @@ const Header = () => {
               )}
             </ul>
             <ul className="navbar-nav ms-auto font-sans">
-              <li className="nav-item">
-                <Link
-                  href="/register"
-                  className="nav-link bg-success text-white px-4 py-2 rounded hover:bg-emerald-600 active:bg-emerald-700 transition-colors">
-                  Register
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  href="/login"
-                  className="nav-link bg-success text-white px-4 py-2 rounded hover:bg-emerald-600 active:bg-emerald-700 transition-colors ms-2">
-                  Login
-                </Link>
-              </li>
+              {!session ? (
+                <>
+                  <li className="nav-item">
+                    <Link
+                      href="/register"
+                      className="nav-link bg-success text-white px-4 py-2 rounded hover:bg-emerald-600 active:bg-emerald-700 transition-colors">
+                      Register
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      href="/login"
+                      className="nav-link bg-success text-white px-4 py-2 rounded hover:bg-emerald-600 active:bg-emerald-700 transition-colors ms-2">
+                      Login
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <li className="nav-item">
+                  <button
+                    onClick={() => signOut()}
+                    className="nav-link bg-success text-white px-4 py-2 rounded hover:bg-emerald-600 active:bg-emerald-700 transition-colors">
+                    Logout
+                  </button>
+                </li>
+              )}
             </ul>
           </div>
         </div>

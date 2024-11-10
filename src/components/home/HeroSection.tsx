@@ -19,7 +19,7 @@ export const HeroSection = () => {
           style={{
             height: "100vh",
             minHeight: "600px",
-            backgroundImage: "url(/two-eagles 1.png)",
+            backgroundImage: "url(../../../public/two-eagles 1.png)",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}>

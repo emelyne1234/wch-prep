@@ -77,7 +77,7 @@ export default function LoginPage() {
                       id="password"
                       value={formData.password}
                       onChange={handleLoginInputField}
-                      placeholder="Password"
+                      placeholder="Enter your password"
                       aria-label="Password"
                       required
                     />
