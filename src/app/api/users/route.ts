@@ -11,8 +11,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
       email,
       username,
       password,
-      expertise,
-      bio,
     } = await req.json();
 
     try {
@@ -57,12 +55,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
       email: email,
       username: username,
       password: hashedPassword,
-      expertise: expertise,
-      bio: bio,
       role_id: userRole[0].Id,
     });
 
-    const message = "User created successfully";
+    const message = "Successfully registered";
     return NextResponse.json({
       status: 200,
       data: null,

@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
 
 
@@ -29,6 +30,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <SessionProvider>
+          <Toaster />
           <ReactQueryProvider>{children}</ReactQueryProvider>
         </SessionProvider>
       </body>

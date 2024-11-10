@@ -17,13 +17,9 @@ export const loginSchema = z.object({
 export const registerSchema = z.object({
   email: z.string().email("Invalid Email").nonempty("Email is required"),
   username: z.string().nonempty("Username is required"),
-  password: passwordSchema,
-  phone: z
-    .string()
-    .nonempty("Phone Number is required")
-    .min(10, "Phone Number must be at least 10 characters")
-    .max(15, "Phone Number must be at most 15 characters"),
+  password: passwordSchema
 });
+
 
 export type RegisterSchema = z.infer<typeof registerSchema>;
 export type LoginSchema = z.infer<typeof loginSchema>;

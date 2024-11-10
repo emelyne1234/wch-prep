@@ -2,11 +2,22 @@
 
 import { useState } from "react";
 import Image from 'next/image';
-
+import { useUpdateProfile } from "@/hooks/users/useProfile";
 export default function CompleteProfilePage() {
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [bio, setBio] = useState("");
   const [expertise, setExpertise] = useState("");
+
+  const {
+    Data,
+    setData,
+    handleSubmit,
+    handleInputChanges,
+    isPending,
+    errors,
+    handleAddressChange,
+    removeImage
+  } = useUpdateProfile();
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];
