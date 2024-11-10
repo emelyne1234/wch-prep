@@ -6,7 +6,7 @@ import { HttpStatusCode } from "axios";
 import { getUserIdFromSession } from "@/utils/getUserIdFromSession";
 
 
-export async function PATCH(req: NextRequest, {params}: {params: {id:string}}){
+export async function PATCH(req: NextRequest, {params}: {params: Promise<{ id: string }>}){
 
     try{
         const userId = await getUserIdFromSession();
@@ -18,7 +18,7 @@ export async function PATCH(req: NextRequest, {params}: {params: {id:string}}){
           );
         }
 
-        const id = params.id
+        const { id } = await params;
 
         const body = await req.json();
 
@@ -46,7 +46,7 @@ export async function PATCH(req: NextRequest, {params}: {params: {id:string}}){
     }
 }
 
-export async function DELETE(req: NextRequest, {params}: {params: {id:string}}){
+export async function DELETE(req: NextRequest, {params}: {params: Promise<{ id: string }>}){
 
     try{
         const userId = await getUserIdFromSession();
@@ -58,7 +58,7 @@ export async function DELETE(req: NextRequest, {params}: {params: {id:string}}){
           );
         }
 
-        const id = params.id
+        const { id } = await params;
 
         const existingResources = await db.select().from(resources).where(eq(resources.id, id))
     

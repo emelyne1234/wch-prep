@@ -5,15 +5,9 @@ import { eq, or } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 import { passwordSchema } from "@/utils/validateFields/passwordSchema";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest, context: { params: Promise<{}> }) {
   try {
-    const {
-      email,
-      username,
-      password,
-      expertise,
-      bio,
-    } = await req.json();
+    const { email, username, password, expertise, bio } = await req.json();
 
     try {
       passwordSchema.parse(password);
@@ -28,16 +22,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const existingUser = await db
       .select()
       .from(users)
-      .where(
-        or(
-          eq(users.email, email as string),
-          eq(users.username, username)
-        )
-      )
+      .where(or(eq(users.email, email as string), eq(users.username, username)))
       .limit(1);
 
     if (existingUser.length > 0) {
-      const existingField = existingUser[0].email === email ? "email" : "username";
+      const existingField =
+        existingUser[0].email === email ? "email" : "username";
       return NextResponse.json({
         status: 400,
         data: null,
@@ -68,7 +58,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
       data: null,
       message,
     });
-
   } catch (error: unknown) {
     const Error = error as Error;
     return NextResponse.json({

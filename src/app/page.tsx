@@ -1,11 +1,26 @@
-import ConservationPlatform from '@/components/ConservationPlatform';
+"use client";
 
-export default function Home() {
+import { HeroSection } from "@/components/home/HeroSection";
+import { AboutSection } from "@/components/home/AboutSection";
+
+import Header from "@/components/Header";
+import Testimonials from "@/components/Testimonials";
+import Footer from "@/components/Footer";
+import { PlatformSection } from "@/components/home/PlatformSection";
+
+const ConservationPlatform = () => {
   return (
-    <div className="container text-center my-5">
-      <h1 className="display-4">Welcome to My Bootstrap Next.js App!</h1>
-      <p className="lead">This is a simple project using Bootstrap with Next.js.</p>
-      <button className="btn btn-primary">Click Me</button>
-    </div>
+    <>
+      <Header />
+      <main>
+        <HeroSection />
+        <AboutSection />
+        <PlatformSection />
+        <Testimonials />
+      </main>
+      <Footer />
+    </>
   );
-}
+};
+
+export default ConservationPlatform;
