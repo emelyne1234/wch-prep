@@ -1,12 +1,11 @@
-import Google from "next-auth/providers/google";
-import Github from "next-auth/providers/github";
-import Credentials from "next-auth/providers/credentials";
-import { db, roles, sessions, users } from "@/server/db/schema";
-import type { NextAuthOptions } from "next-auth";
-import { eq } from "drizzle-orm";
+import { roles, users } from "@/server/db/schema";
 import bcrypt from "bcryptjs";
-import { User } from "@/types/user";
-import { v4 as uuidv4 } from "uuid";
+import { eq } from "drizzle-orm";
+import type { NextAuthOptions } from "next-auth";
+import Credentials from "next-auth/providers/credentials";
+import Github from "next-auth/providers/github";
+import Google from "next-auth/providers/google";
+import db from "./server/db";
 
 export const options: NextAuthOptions = {
   providers: [
@@ -54,7 +53,7 @@ export const options: NextAuthOptions = {
             id: user.id,
             email: user.email,
             username: user.username,
-            role_id: user.role_id,
+            roleId: user.roleId,
             image: null,
           };
         } catch (error) {
@@ -92,12 +91,12 @@ export const options: NextAuthOptions = {
             profileImage: image,
             username: "",
             password: "",
-            role_id: userRole[0].Id,
+            roleId: userRole[0].Id,
           });
         } else {
           user.id = existingUser[0].id;
           user.username = existingUser[0].username;
-          user.role_id = existingUser[0].role_id;
+          user.roleId = existingUser[0].roleId;
         }
       }
 
@@ -108,7 +107,7 @@ export const options: NextAuthOptions = {
         token.id = user.id;
         token.email = user.email;
         token.username = user.username;
-        token.role = user.role_id;
+        token.role = user.roleId;
       }
       return token;
     },
@@ -117,7 +116,7 @@ export const options: NextAuthOptions = {
         session.user.id = token.id as string;
         session.user.email = token.email as string;
         session.user.username = token.username as string;
-        session.user.role_id = token.role as string;
+        session.user.roleId = token.role as string;
       }
       return session;
     },

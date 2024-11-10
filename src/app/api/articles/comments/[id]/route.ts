@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/server/db";
+import db from "@/server/db";
 import { articlesComments, articles } from "@/server/db/schema";
 import { eq } from "drizzle-orm";
 import { HttpStatusCode } from "axios";
@@ -42,8 +42,8 @@ export async function GET(req: NextRequest, { params }: { params: Params }) {
       data: {
         id: commentData.id,
         comment: commentData.comment,
-        user_id: commentData.user_id,
-        created_at: commentData.created_at,
+        userId: commentData.userId,
+        createdAt: commentData.createdAt,
       },
     });
   } catch (error) {
@@ -81,8 +81,8 @@ export async function POST(req: NextRequest, { params }: { params: Params }) {
     }
 
     await db.insert(articlesComments).values({
-      articles_id: articleId,
-      user_id: userId,
+      articlesId: articleId,
+      userId: userId,
       comment: comment,
     });
 

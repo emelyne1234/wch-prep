@@ -1,21 +1,20 @@
+import ClientBootstrap from "@/components/ClientBootstrap";
 import ReactQueryProvider from "@/utils/providers/ReactQueryProvider";
 import { SessionProvider } from "@/utils/SessionProvider";
-import ClientBootstrap from '@/components/ClientBootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Wildlife Conservation",
-  description: "Wildlife Conservation",
+  title: "WCH",
+  description: "Wildlife Conservation Hub",
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/favicon.ico",
+    icon: "/gorilla-icon 1.png",
+    shortcut: "/gorilla-icon 1.png",
+    apple: "/gorilla-icon 1.png",
   },
 };
 
@@ -29,8 +28,8 @@ export default function RootLayout({
       <body className={inter.className}>
         <SessionProvider>
           <ReactQueryProvider>
-            <ClientBootstrap />
             {children}
+            <ClientBootstrap />
           </ReactQueryProvider>
         </SessionProvider>
       </body>

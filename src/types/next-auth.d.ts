@@ -13,7 +13,7 @@ declare module "next-auth" {
       profileImage: string;
       expertise: string;
       bio: string;
-      role_id: string;
+      roleId: string;
     };
   }
 
@@ -22,7 +22,7 @@ declare module "next-auth" {
     username: string;
     email: string;
     image: string;
-    role_id: string;
+    roleId: string;
     session_token?: string;
   }
 }
