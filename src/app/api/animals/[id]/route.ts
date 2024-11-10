@@ -5,7 +5,7 @@ import { eq } from "drizzle-orm";
 import { HttpStatusCode } from "axios";
 import { getUserIdFromSession } from "@/utils/getUserIdFromSession";
 
-type Params = Promise<{ id: string }>
+type Params = Promise<{ id: string }>;
 
 export async function PATCH(
   request: NextRequest,

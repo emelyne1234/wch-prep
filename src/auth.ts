@@ -20,74 +20,52 @@ export const options: NextAuthOptions = {
     Credentials({
       name: "Credentials",
       credentials: {
-        identifier: { label: "Username or Email", type: "text" },
+        username: { label: "Username", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials: {
-        identifier: string;
-        password: string;
-      }): Promise<User | null> {
-        if (!credentials?.identifier || !credentials.password) return null;
+      async authorize(credentials) {
+        try {
+          if (!credentials?.username || !credentials.password) {
+            throw new Error("Missing credentials");
+          }
 
-        const identifier = credentials.identifier;
-        const userQuery = identifier.includes("@")
-          ? eq(users.email, identifier)
-          : eq(users.username, identifier);
-
-        const existingUser = await db
-          .select()
-          .from(users)
-          .where(userQuery)
-          .limit(1);
-
-        if (existingUser.length === 0) {
-          const userRole = await db
-            .select({ Id: roles.id })
-            .from(roles)
-            .where(eq(roles.name, "member"))
+          const existingUser = await db
+            .select()
+            .from(users)
+            .where(eq(users.username, credentials.username))
             .limit(1);
 
-          const hashedPassword = await bcrypt.hash(credentials.password, 10);
-          const [newUser] = await db
-            .insert(users)
-            .values({
-              email: identifier.includes("@") ? identifier : "",
-              username: !identifier.includes("@") ? identifier : "",
-              password: hashedPassword,
-              role_id: userRole[0].Id,
-            })
-            .returning({
-              id: users.id,
-              email: users.email,
-              username: users.username,
-              role_id: users.role_id,
-            });
+          if (existingUser.length === 0) {
+            throw new Error("No user found");
+          }
 
-          return newUser
-            ? {
-                id: newUser.id,
-                email: newUser.email,
-                username: newUser.username,
-                role_id: newUser.role_id,
-              }
-            : null;
-        } else {
           const user = existingUser[0];
           const isPasswordValid = await bcrypt.compare(
             credentials.password,
             user.password ?? ""
           );
-          if (!isPasswordValid) return null;
+
+          if (!isPasswordValid) {
+            throw new Error("Invalid password");
+          }
+
           return {
             id: user.id,
             email: user.email,
             username: user.username,
             role_id: user.role_id,
           };
+        } catch (error) {
+          console.error("Auth error:", error);
+          return null;
         }
       },
     }),
   ],
+  pages: {
+    signIn: '/login',
+    error: '/login',
+  },
   callbacks: {
     async signIn({ user, account }) {
       if (account?.provider === "google" || account?.provider === "github") {
@@ -121,64 +99,30 @@ export const options: NextAuthOptions = {
         }
       }
 
-      const expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
-      const sessionToken = uuidv4();
-      try {
-        await db.insert(sessions).values({
-          session_token: sessionToken,
-          user_id: user.id,
-          expires,
-        });
-
-        user.session_token = sessionToken;
-      } catch (err) {
-        const error = err as Error;
-        return error.message;
-      }
       return true;
     },
-    // async session({ session, token }) {
-    //     if (token?.sub) {
-    //         session.user = { id: token.sub, email: session.user.email, accessToken: "", username: "", image: "", profileImage: "", expertise: "", bio: "", role_id: "" };
-    //     }
-
-    //     console.log("sessions==================================", session.user)
-    //     return session;
-    // },
-    // async jwt({ token, user }) {
-    //     if (user) {
-    //         token.sub = user.id;
-    //         token.username = user.username;
-    //         token.role_id = user.role_id;
-    //     }
-    //     return token;
-    // },
-
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.session_token = user.session_token;
         token.email = user.email;
         token.username = user.username;
-        token.picture = user.image;
+        token.role = user.role_id;
       }
       return token;
     },
     async session({ session, token }) {
-      if (token) {
+      if (token && session.user) {
         session.user.id = token.id as string;
-        session.user.accessToken = token.session_token as string;
+        session.user.email = token.email as string;
+        session.user.username = token.username as string;
         session.user.role_id = token.role as string;
       }
       return session;
     },
-    async redirect({ baseUrl }) {
-      return Promise.resolve(baseUrl);
-    },
   },
-
   session: {
     strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   jwt: {
     secret: process.env.JWT_SECRET as string,

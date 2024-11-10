@@ -105,11 +105,44 @@ export async function DELETE(
   try {
     const userId = await getUserIdFromSession();
 
+<<<<<<< HEAD
     if (!userId) {
       return NextResponse.json(
         { status: 401, message: "Unauthorized", data: null },
         { status: HttpStatusCode.Unauthorized }
       );
+=======
+    try{
+        const userId = await getUserIdFromSession();
+
+        if (!userId) {
+          return NextResponse.json(
+            { status: 401, message: "Unauthorized", data: null },
+            { status: HttpStatusCode.Unauthorized }
+          );
+        }
+
+        if (!params || !params.id) {
+          return NextResponse.json({ message: "Missing user ID", status: 400 }, { status: HttpStatusCode.BadRequest });
+        }
+
+        const id = params.id
+
+        const existingComment = await db.select().from(forumsComments).where(eq(forumsComments.id, id))
+    
+        if(existingComment.length === 0){
+            return NextResponse.json({message: "Comment not found", status: 200}, {status: HttpStatusCode.BadRequest})
+        }
+          await db.delete(forumsComments).where(eq(forumsComments.id, id))
+    
+          return NextResponse.json({
+            status: 200,
+            message: "comments deleted successfully",
+            data: null,
+          });    }catch (error) {
+        const Error = error as Error;
+        return NextResponse.json({ message: Error.message }, { status: 500 });
+>>>>>>> b4f8ad6d00ee63c7ce66836592bba3f62ab98987
     }
 
     const { id } = await params;
@@ -145,11 +178,52 @@ export async function PATCH(
   try {
     const userId = await getUserIdFromSession();
 
+<<<<<<< HEAD
     if (!userId) {
       return NextResponse.json(
         { status: 401, message: "Unauthorized", data: null },
         { status: HttpStatusCode.Unauthorized }
       );
+=======
+    try{
+        const userId = await getUserIdFromSession();
+
+        if (!userId) {
+          return NextResponse.json(
+            { status: 401, message: "Unauthorized", data: null },
+            { status: HttpStatusCode.Unauthorized }
+          );
+        }
+
+        if (!params || !params.id) {
+          return NextResponse.json({ message: "Missing user ID", status: 400 }, { status: HttpStatusCode.BadRequest });
+        }
+
+        const id = params.id
+
+        const body = await req.json();
+
+        const existingForumComments = await db.select().from(forumsComments).where(eq(forumsComments.id, id))
+    
+        if(existingForumComments.length === 0){
+            return NextResponse.json({message: "Comment not found", status: 200}, {status: HttpStatusCode.BadRequest})
+        }
+        const updateData = {
+            ...body,
+            updated_at: new Date(),
+            updated_by: userId!,
+          };
+
+          await db.update(forumsComments).set(updateData).where(eq(forumsComments.id, id))
+    
+          return NextResponse.json({
+            status: 200,
+            message: "Comments updated successfully",
+            data: updateData,
+          });    }catch (error) {
+        const Error = error as Error;
+        return NextResponse.json({ message: Error.message }, { status: 500 });
+>>>>>>> b4f8ad6d00ee63c7ce66836592bba3f62ab98987
     }
 
     const { id } = await params;

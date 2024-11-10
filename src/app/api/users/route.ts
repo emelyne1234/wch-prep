@@ -7,7 +7,15 @@ import { passwordSchema } from "@/utils/validateFields/passwordSchema";
 
 export async function POST(req: NextRequest, context: { params: Promise<{}> }) {
   try {
+<<<<<<< HEAD
     const { email, username, password, expertise, bio } = await req.json();
+=======
+    const {
+      email,
+      username,
+      password,
+    } = await req.json();
+>>>>>>> b4f8ad6d00ee63c7ce66836592bba3f62ab98987
 
     try {
       passwordSchema.parse(password);
@@ -47,12 +55,10 @@ export async function POST(req: NextRequest, context: { params: Promise<{}> }) {
       email: email,
       username: username,
       password: hashedPassword,
-      expertise: expertise,
-      bio: bio,
       role_id: userRole[0].Id,
     });
 
-    const message = "User created successfully";
+    const message = "Successfully registered";
     return NextResponse.json({
       status: 200,
       data: null,
