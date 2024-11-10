@@ -1,7 +1,7 @@
-import { User } from "@/types/user";
+import { UpdateprofileInterface, User } from "@/types/user";
 import axios from "axios";
 
-export const profileData = async(data: User) => {
+export const profileData = async (data: UpdateprofileInterface): Promise<{ message: string }> => {
     const response = await axios.patch("/api/profile", data)
     return response.data
 }

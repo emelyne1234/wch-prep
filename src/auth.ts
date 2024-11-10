@@ -2,9 +2,10 @@ import Google from "next-auth/providers/google";
 import Github from "next-auth/providers/github";
 import Credentials from "next-auth/providers/credentials";
 import { db, roles, sessions, users } from "@/server/db/schema";
-import type { NextAuthOptions, User } from "next-auth";
+import type { NextAuthOptions } from "next-auth";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
+import { User } from "@/types/user";
 import { v4 as uuidv4 } from "uuid";
 
 export const options: NextAuthOptions = {
@@ -23,7 +24,7 @@ export const options: NextAuthOptions = {
         username: { label: "Username", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
+      async authorize(credentials): Promise<any> {
         try {
           if (!credentials?.username || !credentials.password) {
             throw new Error("Missing credentials");
@@ -54,6 +55,7 @@ export const options: NextAuthOptions = {
             email: user.email,
             username: user.username,
             role_id: user.role_id,
+            image: null,
           };
         } catch (error) {
           console.error("Auth error:", error);
@@ -63,8 +65,8 @@ export const options: NextAuthOptions = {
     }),
   ],
   pages: {
-    signIn: '/login',
-    error: '/login',
+    signIn: "/login",
+    error: "/login",
   },
   callbacks: {
     async signIn({ user, account }) {

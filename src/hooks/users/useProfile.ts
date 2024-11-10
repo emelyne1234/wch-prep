@@ -6,49 +6,53 @@ import { z } from "zod";
 
 import { profileData } from "@/services/users/profile";
 import showToast from "@/utils/showToast";
-import { UpdateprofileInterface } from "@/types/user";
+import { UpdateprofileInterface, User } from "@/types/user";
 import { useRouter } from "next/navigation";
 
-const initialData: UpdateprofileInterface = {
+const initialData: UpdateprofileInterface &
+  Pick<User, "email" | "username" | "password"> = {
   expertise: "",
   profileImage: "",
-  bio: ""
+  bio: "",
+  email: "",
+  username: "",
+  password: "",
 };
 
 export const useUpdateProfile = () => {
   const [Data, setData] = useState<UpdateprofileInterface>(initialData);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
-  const router = useRouter()
-  
+  const router = useRouter();
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const queryClient = useQueryClient();
   const updateProfileMutation = useMutation({
+    mutationKey: ["updateProfile"],
     mutationFn: profileData,
-    onSuccess: (response) => {
+    onSuccess: (response: { message: string }) => {
       if (response.message === "Profile updated successfully") {
-          queryClient.invalidateQueries();
-          setData(initialData);
-          setErrors({});
-          showToast(response.message, "success");
-          router.push("/login");
+        queryClient.invalidateQueries();
+        setData(initialData);
+        setErrors({});
+        showToast(response.message, "success");
+        router.push("/login");
       } else {
-          showToast(response.message, "error");
+        showToast(response.message, "error");
       }
-  },
-  onError: (error: unknown) => {
-    if (axios.isAxiosError(error) && error.response && error.response.data) {
+    },
+    onError: (error: unknown) => {
+      if (axios.isAxiosError(error) && error.response && error.response.data) {
         const errorData = error.response.data;
         if (errorData.data && Array.isArray(errorData.data)) {
-            showToast(errorData.data.join(", "), "error");
+          showToast(errorData.data.join(", "), "error");
         } else {
-            showToast("An unexpected error occurred.", "error");
+          showToast("An unexpected error occurred.", "error");
         }
-    } else {
+      } else {
         showToast("An unexpected error occurred.", "error");
-    }
-},
+      }
+    },
   });
 
   const handleInputChanges = async (
@@ -69,26 +73,23 @@ export const useUpdateProfile = () => {
     const { id, value } = e.target;
 
     setData((prevState) => ({
-      ...prevState
+      ...prevState,
     }));
   };
 
   const handleSubmit = () => {
     try {
-        updateProfileMutation.mutate(Data);
+      updateProfileMutation.mutate(Data);
     } catch (error) {
-        if (error instanceof z.ZodError) {
-            const fieldErrors = error.errors.reduce(
-                (acc, curr) => {
-                    acc[curr.path[0]] = curr.message;
-                    return acc;
-                },
-                {} as Record<string, string>
-            );
-            setErrors(fieldErrors);
-        }
+      if (error instanceof z.ZodError) {
+        const fieldErrors = error.errors.reduce((acc, curr) => {
+          acc[curr.path[0]] = curr.message;
+          return acc;
+        }, {} as Record<string, string>);
+        setErrors(fieldErrors);
+      }
     }
-};
+  };
 
   return {
     Data,

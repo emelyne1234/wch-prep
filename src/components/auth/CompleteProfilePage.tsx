@@ -102,7 +102,7 @@ export default function CompleteProfilePage() {
               className="form-select shadow-sm"
               id="expertise"
               value={Data.expertise}
-              onChange={(e)=>handleInputChanges(e)}
+              onChange={handleInputChanges as React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>}
               required
             >
               <option value="">Select your expertise</option>
