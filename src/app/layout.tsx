@@ -28,15 +28,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <SessionProvider>
-<<<<<<< HEAD
           <ReactQueryProvider>
             <ClientBootstrap />
             {children}
           </ReactQueryProvider>
-=======
-          <Toaster />
-          <ReactQueryProvider>{children}</ReactQueryProvider>
->>>>>>> b4f8ad6d00ee63c7ce66836592bba3f62ab98987
         </SessionProvider>
       </body>
     </html>
