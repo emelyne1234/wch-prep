@@ -79,6 +79,7 @@ export default function CompleteProfilePage() {
 
               onChange={handleImageChange}
             />
+            
           </div>
 
           <div className="form-group mb-4">

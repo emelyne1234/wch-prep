@@ -3,14 +3,8 @@ import { passwordSchema } from "./passwordSchema";
 
 
 export const loginSchema = z.object({
-  identifier: z
-    .string()
-    .nonempty("Email or Username is required")
-    .refine(value => {
-      return value.includes('@') ? z.string().email("Invalid Email").parse(value) : value.length > 0;
-    }, {
-      message: "Invalid Email or Username",
-    }),
+  username: z
+    .string(),
   password: passwordSchema,
 });
 
