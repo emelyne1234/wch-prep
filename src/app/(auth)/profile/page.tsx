@@ -1,12 +1,12 @@
 "use client";
 
+import CompleteProfilePage from "@/components/auth/CompleteProfilePage";
 import { useQuery } from "@tanstack/react-query";
 
 export default function ProfilePage() {
   const { data, isLoading } = useQuery({
     queryKey: ["profile"],
     queryFn: async () => {
-      // Your fetch logic here
       return {};
     },
   });
@@ -17,8 +17,7 @@ export default function ProfilePage() {
 
   return (
     <div>
-      <h1>Profile</h1>
-      {/* Your profile content */}
+      <CompleteProfilePage />
     </div>
   );
 }

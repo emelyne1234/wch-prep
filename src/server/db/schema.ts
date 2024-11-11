@@ -15,7 +15,7 @@ export const users = pgTable("users", {
   username: varchar("username", { length: 100 }).notNull(),
   password: varchar("password", { length: 100 }).notNull(),
   expertise: varchar("expertise", { length: 100 }),
-  profileImage: varchar("profile_image", { length: 300 }),
+  profileImage: varchar("image", { length: 300 }),
   roleId: uuid("role_id")
     .notNull()
     .references(() => roles.id, { onDelete: "cascade" }),

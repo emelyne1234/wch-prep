@@ -1,14 +1,10 @@
 import cloudinary from "cloudinary";
 import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-
-import { options } from "@/auth";
 import db from "@/server/db";
 import { users } from "@/server/db/schema";
 import { getUserIdFromSession } from "@/utils/getUserIdFromSession";
 import { HttpStatusCode } from "axios";
-import { sendResponse } from "next/dist/server/image-optimizer";
 
 cloudinary.v2.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,

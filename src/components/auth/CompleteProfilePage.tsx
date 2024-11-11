@@ -7,8 +7,6 @@ import { useUpdateProfile } from "@/hooks/users/useProfile";
 import { uploadImageToCloudinary } from "@/services/users/profile";
 export default function CompleteProfilePage() {
   const [profileImage, setProfileImage] = useState<File | null>(null);
-  const [bio, setBio] = useState("");
-  const [expertise, setExpertise] = useState("");
 
   const {
     Data,
