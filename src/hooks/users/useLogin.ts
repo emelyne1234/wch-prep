@@ -23,6 +23,8 @@ export const useLogin = () => {
   ) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
+
+
     if (errors[id]) {
       setErrors((prevErrors) => {
         const { [id]: _, ...rest } = prevErrors;
@@ -33,7 +35,6 @@ export const useLogin = () => {
 
   const handleSubmission = async () => {
     try {
-      // Validate form data
       loginSchema.parse(formData);
       
       setIsLoading(true);

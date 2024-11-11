@@ -5,7 +5,9 @@ import { passwordSchema } from "./passwordSchema";
 export const loginSchema = z.object({
   username: z
     .string(),
-  password: passwordSchema,
+  password: passwordSchema.refine((val) => val !== '', {
+    message: "Password is required",
+  }),
 });
 
 export const registerSchema = z.object({

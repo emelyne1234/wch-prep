@@ -25,6 +25,8 @@ export default function LoginPage() {
     setLoading(false);
   };
 
+  console.log("spinnerrr", loading)
+
   return (
     <main className="min-vh-100 d-flex justify-content-center align-items-center bg-light py-5">
       <div className="container">
@@ -77,16 +79,21 @@ export default function LoginPage() {
                       id="password"
                       value={formData.password}
                       onChange={handleLoginInputField}
-                      placeholder="Enter your password"
+                      placeholder="Password"
                       aria-label="Password"
                       required
                     />
+                    {errors.general && (
+                      <div className="text-danger mt-2">
+                        {errors.general}
+                      </div>
+                    )}
                   </div>
                   <button
                     type="submit"
                     className="btn btn-primary w-100"
-                    disabled={loading}>
-                    {loading ? (
+                    disabled={isLoading}>
+                    {isLoading ? (
                       <Spinner
                         as="span"
                         animation="border"
