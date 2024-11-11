@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { z } from "zod";
 
 import { profileData } from "@/services/users/profile";
-import showToast from "@/utils/showToast";
 import { UpdateprofileInterface, User } from "@/types/user";
-import { useRouter } from "next/navigation";
+import showToast from "@/utils/showToast";
 
 const initialData: UpdateprofileInterface &
   Pick<User, "email" | "username" | "password"> = {
@@ -82,10 +82,13 @@ export const useUpdateProfile = () => {
       updateProfileMutation.mutate(Data);
     } catch (error) {
       if (error instanceof z.ZodError) {
-        const fieldErrors = error.errors.reduce((acc, curr) => {
-          acc[curr.path[0]] = curr.message;
-          return acc;
-        }, {} as Record<string, string>);
+        const fieldErrors = error.errors.reduce(
+          (acc, curr) => {
+            acc[curr.path[0]] = curr.message;
+            return acc;
+          },
+          {} as Record<string, string>
+        );
         setErrors(fieldErrors);
       }
     }

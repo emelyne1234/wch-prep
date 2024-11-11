@@ -1,5 +1,5 @@
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 
 const Header = () => {
@@ -29,7 +29,8 @@ const Header = () => {
             data-bs-target="#navbarNav"
             aria-controls="navbarNav"
             aria-expanded="false"
-            aria-label="Toggle navigation">
+            aria-label="Toggle navigation"
+          >
             <span className="navbar-toggler-icon"></span>
           </button>
 
@@ -44,7 +45,8 @@ const Header = () => {
                           ? "/community"
                           : `/${item.toLowerCase()}`
                       }
-                      className="nav-link px-4 text-gray-700 hover:text-emerald-600 transition-colors relative group">
+                      className="nav-link px-4 text-gray-700 hover:text-emerald-600 transition-colors relative group"
+                    >
                       {item}
                       <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-500 group-hover:w-full transition-all duration-300"></span>
                     </Link>
@@ -58,14 +60,16 @@ const Header = () => {
                   <li className="nav-item">
                     <Link
                       href="/register"
-                      className="nav-link bg-success text-white px-4 py-2 rounded hover:bg-emerald-600 active:bg-emerald-700 transition-colors">
+                      className="nav-link bg-success text-white px-4 py-2 rounded hover:bg-emerald-600 active:bg-emerald-700 transition-colors"
+                    >
                       Register
                     </Link>
                   </li>
                   <li className="nav-item">
                     <Link
                       href="/login"
-                      className="nav-link bg-success text-white px-4 py-2 rounded hover:bg-emerald-600 active:bg-emerald-700 transition-colors ms-2">
+                      className="nav-link bg-success text-white px-4 py-2 rounded hover:bg-emerald-600 active:bg-emerald-700 transition-colors ms-2"
+                    >
                       Login
                     </Link>
                   </li>
@@ -74,7 +78,8 @@ const Header = () => {
                 <li className="nav-item">
                   <button
                     onClick={() => signOut()}
-                    className="nav-link bg-success text-white px-4 py-2 rounded hover:bg-emerald-600 active:bg-emerald-700 transition-colors">
+                    className="nav-link bg-success text-white px-4 py-2 rounded hover:bg-emerald-600 active:bg-emerald-700 transition-colors"
+                  >
                     Logout
                   </button>
                 </li>

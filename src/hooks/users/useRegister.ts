@@ -1,16 +1,19 @@
 "use client";
 
 import React, { useState } from "react";
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import showToast from "@/utils/showToast";
 import { useRouter } from "next/navigation";
+import { z } from "zod";
+
 import { registerUser } from "@/services/users/register";
+import showToast from "@/utils/showToast";
 import {
   registerSchema,
   RegisterSchema,
 } from "@/utils/validateFields/registerSchema";
-import { z } from "zod";
+
 
 const initialData = {
   email: "",
@@ -66,10 +69,13 @@ export const useAddUsers = () => {
       addUsersMutation.mutate(formData);
     } catch (error) {
       if (error instanceof z.ZodError) {
-        const fieldErrors = error.errors.reduce((acc, curr) => {
-          acc[curr.path[0]] = curr.message;
-          return acc;
-        }, {} as Record<string, string>);
+        const fieldErrors = error.errors.reduce(
+          (acc, curr) => {
+            acc[curr.path[0]] = curr.message;
+            return acc;
+          },
+          {} as Record<string, string>
+        );
         setErrors(fieldErrors);
       }
     }

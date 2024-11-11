@@ -25,7 +25,6 @@ export const options: NextAuthOptions = {
       },
       async authorize(credentials): Promise<any> {
         try {
-
           if (!credentials?.username || !credentials.password) {
             throw new Error("Missing credentials");
           }
@@ -41,7 +40,7 @@ export const options: NextAuthOptions = {
           }
 
           const user = existingUser[0];
-          console.log("Stored password hash:", user.password); 
+          console.log("Stored password hash:", user.password);
           const isPasswordValid = await bcrypt.compare(
             credentials.password,
             user.password ?? ""

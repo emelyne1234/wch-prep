@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 
-export async function isAuthenticated(
-  req: NextRequest,
-  res: NextResponse,
-) {
+export async function isAuthenticated(req: NextRequest) {
   const token = await getToken({ req, secret: process.env.JWT_SECRET });
 
   if (!token) {

@@ -1,5 +1,6 @@
-import { UpdateprofileInterface, User } from "@/types/user";
 import axios from "axios";
+
+import { UpdateprofileInterface, User } from "@/types/user";
 
 export const profileData = async (
   data: UpdateprofileInterface

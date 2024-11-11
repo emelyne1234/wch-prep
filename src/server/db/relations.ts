@@ -1,4 +1,5 @@
 import { relations } from "drizzle-orm";
+
 import {
   users,
   roles,
@@ -12,8 +13,7 @@ import {
   projectMembers,
   projectGoals,
   projectNeeds,
-  messages,
-  resources,
+  messages
 } from "./schema";
 
 export const userRelations = relations(users, ({ one, many }) => ({

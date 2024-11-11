@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 
 export default function ProfilePage() {
   const { data, isLoading } = useQuery({
-    queryKey: ['profile'],
+    queryKey: ["profile"],
     queryFn: async () => {
       // Your fetch logic here
       return {};

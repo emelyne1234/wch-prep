@@ -21,7 +21,8 @@ export const AboutSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}>
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="text-center mb-4 text-muted font-light tracking-wider">
             ABOUT US
           </h2>
@@ -32,7 +33,8 @@ export const AboutSection = () => {
               fontSize: "2.75rem",
               letterSpacing: "0.05em",
               textShadow: "2px 2px 4px rgba(0,0,0,0.1)",
-            }}>
+            }}
+          >
             Wildlife Conservation Hub
           </h1>
         </motion.div>
@@ -45,16 +47,20 @@ export const AboutSection = () => {
                 variants={cardVariants}
                 initial="hidden"
                 animate={inView ? "visible" : "hidden"}
-                transition={{ duration: 0.6, delay: 0.2 }}>
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
                 <div className="bg-white h-100 p-5 shadow-sm rounded-lg hover-lift transition-all duration-300 hover:shadow-lg border-l-4 border-primary">
                   <div className="flex items-center gap-3 mb-4">
-                    <Target className="w-8 h-8 text-primary" strokeWidth={1.5} />
+                    <Target
+                      className="w-8 h-8 text-primary"
+                      strokeWidth={1.5}
+                    />
                     <h3 className="mb-0 text-2xl font-semibold">Our Mission</h3>
                   </div>
                   <blockquote className="text-lg mb-0 font-light italic leading-relaxed">
-                    "enhance education, promote collaboration, and drive
+                  &quot;enhance education, promote collaboration, and drive
                     wildlife preservation initiatives among conservationists,
-                    researchers, and the public"
+                    researchers, and the public&quot;
                   </blockquote>
                 </div>
               </motion.div>
@@ -64,7 +70,8 @@ export const AboutSection = () => {
                 variants={cardVariants}
                 initial="hidden"
                 animate={inView ? "visible" : "hidden"}
-                transition={{ duration: 0.6, delay: 0.4 }}>
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
                 <div className="bg-secondary text-white h-100 p-5 rounded-lg shadow-sm hover-lift transition-all duration-300 hover:shadow-lg border-r-4 border-white">
                   <div className="flex items-center gap-3 mb-4">
                     <Binoculars className="w-8 h-8" strokeWidth={1.5} />

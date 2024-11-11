@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
+
 import Image from "next/image";
 
 const testimonials = [
   {
-    text: "Being part of the Wildlife Conservation Hub has truly been transformative. I've connected with experts globally, gained invaluable insights, and accessed educational resources that deepened my knowledge. The Hub's collaborative tools have empowered me to contribute to impactful projects, making me feel like part of a united, conservation-focused community.",
+    text: "Being part of the Wildlife Conservation Hub has truly been transformation. I've connected with experts globally, gained invaluable insights, and accessed educational resources that deepened my knowledge. The Hub's collaborative tools have empowered me to contribute to impactful projects, making me feel like part of a united, conservation-focused community.",
     author: "Dr. Uwimbabazi Emelyne",
     role: "Wildlife Researcher",
     image:
@@ -45,7 +46,8 @@ export default function Testimonials() {
   return (
     <div
       className="container-fluid py-5"
-      style={{ backgroundColor: "#f8f9fa" }}>
+      style={{ backgroundColor: "#f8f9fa" }}
+    >
       <div className="container">
         <h2 className="text-center mb-2 fw-bold">Community</h2>
         <h3 className="text-center mb-5 text-muted fst-italic">
@@ -57,7 +59,8 @@ export default function Testimonials() {
             <div className="col-lg-8">
               <div
                 className="text-center p-4 rounded-3 shadow-sm bg-white"
-                style={{ minHeight: "300px" }}>
+                style={{ minHeight: "300px" }}
+              >
                 <p
                   className="lead mb-4 fw-normal"
                   key={currentTestimonial}
@@ -66,8 +69,9 @@ export default function Testimonials() {
                     transition: "all 0.3s ease-in-out",
                     fontSize: "1.1rem",
                     lineHeight: "1.8",
-                  }}>
-                  "{testimonials[currentTestimonial].text}"
+                  }}
+                >
+                  &quot;{testimonials[currentTestimonial].text}&quot;
                 </p>
 
                 <div className="d-flex align-items-center justify-content-center">
@@ -96,14 +100,16 @@ export default function Testimonials() {
             className="btn btn-light shadow-sm position-absolute start-0 top-50 translate-middle-y rounded-circle"
             onClick={previousTestimonial}
             style={{ width: "40px", height: "40px", padding: "0" }}
-            aria-label="Previous testimonial">
+            aria-label="Previous testimonial"
+          >
             <span className="fs-4">‹</span>
           </button>
           <button
             className="btn btn-light shadow-sm position-absolute end-0 top-50 translate-middle-y rounded-circle"
             onClick={nextTestimonial}
             style={{ width: "40px", height: "40px", padding: "0" }}
-            aria-label="Next testimonial">
+            aria-label="Next testimonial"
+          >
             <span className="fs-4">›</span>
           </button>
         </div>
@@ -116,7 +122,8 @@ export default function Testimonials() {
                 index === currentTestimonial ? "bg-success" : "bg-secondary"
               }`}
               style={{ width: "10px", height: "10px", cursor: "pointer" }}
-              onClick={() => setCurrentTestimonial(index)}></span>
+              onClick={() => setCurrentTestimonial(index)}
+            ></span>
           ))}
         </div>
       </div>

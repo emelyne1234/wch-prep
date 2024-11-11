@@ -120,7 +120,7 @@ export const animals = pgTable("animals", {
   species: varchar("species", { length: 100 }).notNull(),
   description: varchar("description", { length: 200 }),
   habitat: varchar("habitat", { length: 300 }).notNull(),
-  status: varchar("status", { enum: ["Endagered", "Vulnerable"], length: 30 }),
+  status: varchar("status", { enum: ["Endangered", "Vulnerable"], length: 30 }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });

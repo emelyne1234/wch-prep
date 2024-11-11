@@ -1,17 +1,16 @@
 "use client";
 import React, { useState } from "react";
+
 import "bootstrap/dist/css/bootstrap.min.css";
+import { EditorState } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
 import {
   FaUser,
-  FaCog,
   FaSignOutAlt,
   FaComment,
   FaThumbsUp,
 } from "react-icons/fa";
-import { Editor } from "react-draft-wysiwyg";
-import { EditorState } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-
 
 const ForumPage = () => {
   const [showNewDiscussion, setShowNewDiscussion] = useState(false);
@@ -51,7 +50,8 @@ const ForumPage = () => {
           </ul>
           <button
             className="btn btn-primary mt-3"
-            onClick={handleNewDiscussionClick}>
+            onClick={handleNewDiscussionClick}
+          >
             Start New Discussion
           </button>
         </nav>
@@ -143,9 +143,10 @@ const ForumPage = () => {
                       discussion.badge === "News"
                         ? "info"
                         : discussion.badge === "Knowledge"
-                        ? "success"
-                        : "warning"
-                    }`}>
+                          ? "success"
+                          : "warning"
+                    }`}
+                  >
                     {discussion.badge}
                   </span>
                 </div>
@@ -195,7 +196,8 @@ const ForumPage = () => {
             height: "100%",
             backgroundColor: "rgba(0, 0, 0, 0.5)",
             zIndex: 1050,
-          }}>
+          }}
+        >
           <div
             className="modal-content"
             style={{
@@ -208,7 +210,8 @@ const ForumPage = () => {
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
-            }}>
+            }}
+          >
             <h5 style={{ marginBottom: "20px" }}>Create Post</h5>
             <div style={{ marginBottom: "15px" }}>
               <label>Title</label>
@@ -248,7 +251,8 @@ const ForumPage = () => {
             </div>
             <button
               onClick={() => setShowNewDiscussion(false)}
-              className="btn btn-primary">
+              className="btn btn-primary"
+            >
               Close
             </button>
           </div>
@@ -268,4 +272,3 @@ const uploadImageCallback = (file: File) => {
   });
 };
 export default ForumPage;
-

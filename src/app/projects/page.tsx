@@ -137,7 +137,8 @@ export default function CreateProject() {
           <button
             type="submit"
             disabled={isPending}
-            className="btn btn-primary btn-lg px-5 py-3 rounded-pill">
+            className="btn btn-primary btn-lg px-5 py-3 rounded-pill"
+          >
             {isPending ? (
               <>
                 <span className="spinner-border spinner-border-sm me-2" />

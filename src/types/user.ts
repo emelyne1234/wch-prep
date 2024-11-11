@@ -1,10 +1,10 @@
 export interface User {
-    email: string;
-    username: string;
-    password: string;
+  email: string;
+  username: string;
+  password: string;
 }
 export interface UpdateprofileInterface {
-    expertise: string,
-    profileImage: string,
-    bio: string
-  };
+  expertise: string;
+  profileImage: string;
+  bio: string;
+}

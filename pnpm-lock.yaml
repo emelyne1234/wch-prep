@@ -118,7 +118,7 @@ importers:
         specifier: ^1.13.8
         version: 1.13.8
       eslint:
-        specifier: ^8
+        specifier: ^8.57.1
         version: 8.57.1
       eslint-config-next:
         specifier: 15.0.2

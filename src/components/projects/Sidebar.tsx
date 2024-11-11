@@ -12,7 +12,8 @@ export default function Sidebar() {
   return (
     <div
       className="d-flex flex-column flex-shrink-0 bg-dark text-white position-fixed"
-      style={{ width: "4.5rem", height: "100vh" }}>
+      style={{ width: "4.5rem", height: "100vh" }}
+    >
       <div className="d-flex flex-column align-items-center py-3 border-bottom">
         <FaUserCircle size={32} className="mb-2" />
         <div className="small text-center" style={{ fontSize: "0.65rem" }}>

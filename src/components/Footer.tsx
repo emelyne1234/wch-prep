@@ -1,6 +1,6 @@
-import Link from "next/link";
-import Image from "next/image";
 import { Instagram, Twitter, Facebook, Youtube } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -63,7 +63,8 @@ const Footer = () => {
                 <li key={index} className="mb-2">
                   <Link
                     href={link.href}
-                    className="text-secondary text-decoration-none hover-white">
+                    className="text-secondary text-decoration-none hover-white"
+                  >
                     {link.name}
                   </Link>
                 </li>
@@ -79,7 +80,8 @@ const Footer = () => {
                 <li key={index} className="mb-2">
                   <Link
                     href={link.href}
-                    className="text-secondary text-decoration-none hover-white">
+                    className="text-secondary text-decoration-none hover-white"
+                  >
                     {link.name}
                   </Link>
                 </li>
@@ -123,7 +125,8 @@ const Footer = () => {
                   <Link
                     key={index}
                     href={social.href}
-                    className="bg-dark-subtle p-2 rounded-circle text-decoration-none">
+                    className="bg-dark-subtle p-2 rounded-circle text-decoration-none"
+                  >
                     <Icon size={20} className="text-secondary" />
                   </Link>
                 );

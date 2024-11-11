@@ -6,7 +6,8 @@ import * as schema from "./schema";
 
 dotenv.config();
 
-const sql = neon(process.env.NEON_DATABASE_URL as string);
+const sql = neon(process.env.DATABASE_URL as string);
+
 
 const db = drizzle(sql, { schema });
 
