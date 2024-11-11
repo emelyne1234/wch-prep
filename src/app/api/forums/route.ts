@@ -29,12 +29,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { title, content } = await req.json();
+    const { name, description } = await req.json();
 
     await db.insert(forums).values({
-      userId: userId,
-      title: title,
-      content: content,
+      name: name,
+      description: description,
     });
 
     return NextResponse.json(
@@ -78,10 +77,8 @@ export async function GET(req: NextRequest) {
     const data = await db
       .select({
         id: forums.id,
-        title: forums.title,
-        content: forums.content,
-        userId: forums.userId,
-        createdAt: forums.createdAt,
+        name: forums.name,
+        description: forums.description
       })
       .from(forums)
       .offset(offset)

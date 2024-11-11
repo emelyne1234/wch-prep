@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import db from "@/server/db";
-import { forums, forumsComments } from "@/server/db/schema";
+import { forums, forumsPostComments } from "@/server/db/schema";
 import { eq } from "drizzle-orm";
 import { HttpStatusCode } from "axios";
 import { getUserIdFromSession } from "@/utils/getUserIdFromSession";
@@ -23,8 +23,8 @@ export async function GET(
 
     const existingForumComments = await db
       .select()
-      .from(forumsComments)
-      .where(eq(forumsComments.id, id));
+      .from(forumsPostComments)
+      .where(eq(forumsPostComments.id, id));
 
     if (existingForumComments.length === 0) {
       return NextResponse.json(
@@ -40,9 +40,7 @@ export async function GET(
       message: "Comment retrieved successfully",
       data: {
         id: commentData.id,
-        comment: commentData.comment,
-        userId: commentData.userId,
-        createdAt: commentData.createdAt,
+        comment: commentData.content
       },
     });
   } catch (error) {
@@ -65,26 +63,15 @@ export async function POST(
       );
     }
 
-    const { id: forumId } = await params;
+    const { id: postId } = await params;
 
-    const { comment } = await req.json();
+    const { content } = await req.json();
 
-    const existingForum = await db
-      .select()
-      .from(forums)
-      .where(eq(forums.id, forumId));
 
-    if (existingForum.length === 0) {
-      return NextResponse.json(
-        { message: "forum not found", status: 200 },
-        { status: HttpStatusCode.BadRequest }
-      );
-    }
-
-    await db.insert(forumsComments).values({
-      forumId: forumId,
-      userId: userId,
-      comment: comment,
+    await db.insert(forumsPostComments).values({
+      postId,
+      userId,
+      content,
     });
 
     return NextResponse.json({
@@ -116,8 +103,8 @@ export async function DELETE(
 
     const existingComment = await db
       .select()
-      .from(forumsComments)
-      .where(eq(forumsComments.id, id));
+      .from(forumsPostComments)
+      .where(eq(forumsPostComments.id, id));
 
     if (existingComment.length === 0) {
       return NextResponse.json(
@@ -125,7 +112,7 @@ export async function DELETE(
         { status: HttpStatusCode.BadRequest }
       );
     }
-    await db.delete(forumsComments).where(eq(forumsComments.id, id));
+    await db.delete(forumsPostComments).where(eq(forumsPostComments.id, id));
 
     return NextResponse.json({
       status: 200,
@@ -158,8 +145,8 @@ export async function PATCH(
 
     const existingForumComments = await db
       .select()
-      .from(forumsComments)
-      .where(eq(forumsComments.id, id));
+      .from(forumsPostComments)
+      .where(eq(forumsPostComments.id, id));
 
     if (existingForumComments.length === 0) {
       return NextResponse.json(
@@ -174,9 +161,9 @@ export async function PATCH(
     };
 
     await db
-      .update(forumsComments)
+      .update(forumsPostComments)
       .set(updateData)
-      .where(eq(forumsComments.id, id));
+      .where(eq(forumsPostComments.id, id));
 
     return NextResponse.json({
       status: 200,
