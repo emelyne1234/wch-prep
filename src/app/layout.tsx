@@ -4,6 +4,7 @@ import { SessionProvider } from "@/utils/SessionProvider";
 import "bootstrap/dist/css/bootstrap.min.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import Script from "next/script";
 import {Toaster} from "react-hot-toast";
@@ -32,6 +33,7 @@ export default function RootLayout({
           <Toaster />
           <ReactQueryProvider>
             {children}
+            <Toaster />
             <ClientBootstrap />
           </ReactQueryProvider>
         </SessionProvider>
