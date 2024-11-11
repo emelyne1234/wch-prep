@@ -7,7 +7,7 @@ import { passwordSchema } from "@/utils/validateFields/passwordSchema";
 
 export async function POST(req: NextRequest, context: { params: Promise<{}> }) {
   try {
-    const { email, username, password, expertise, bio } = await req.json();
+    const { email, username, password } = await req.json();
 
     try {
       passwordSchema.parse(password);
