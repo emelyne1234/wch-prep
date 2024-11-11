@@ -1,32 +1,60 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint","@atlaskit/design-system"],
+  // "parserOptions": {
+  //   "project": "./tsconfig.json"
+  // },
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "extends": [
     "next/core-web-vitals",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier",
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:react/recommended"
   ],
   "rules": {
     "max-lines": [
       "warn",
-      { "max": 300, "skipBlankLines": true, "skipComments": true }
+      {
+        "max": 250,
+        "skipBlankLines": true,
+        "skipComments": true
+      }
     ],
-    "max-depth": ["error", { "max": 4 }],
-    "max-nested-callbacks": ["error", 3],
-    "no-multiple-empty-lines": ["warn", { "max": 2 }],
+    "max-depth": [
+      "error",
+      {
+        "max": 3
+      }
+    ],
+    "max-nested-callbacks": [
+      "error",
+      2
+    ],
+    "no-multiple-empty-lines": [
+      "warn",
+      {
+        "max": 2
+      }
+    ],
+    "no-template-curly-in-string": "error",
     "prefer-const": "error",
     "no-useless-escape": "off",
     "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/no-explicit-any": "off",
+    // "@typescript-eslint/no-unsafe-assignment": "warn",
     "react/react-in-jsx-scope": "off",
+    "no-console": "warn",
     "import/order": [
-      "error",
+      "warn",
       {
-        "groups": ["builtin", "external", "internal"],
+        "groups": [
+          "builtin",
+          "external",
+          "internal"
+        ],
         "pathGroups": [
           {
             "pattern": "react",
@@ -34,7 +62,9 @@
             "position": "before"
           }
         ],
-        "pathGroupsExcludedImportTypes": ["react"],
+        "pathGroupsExcludedImportTypes": [
+          "react"
+        ],
         "newlines-between": "always",
         "alphabetize": {
           "order": "asc",
@@ -42,7 +72,7 @@
         }
       }
     ],
-    "react/prop-types": "off",
-     "@atlaskit/ui-styling-standard/enforce-style-prop": "off"
+    "react/display-name": "warn",
+    "react/prop-types": "off"
   }
 }

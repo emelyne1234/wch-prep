@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/server/db";
+import db  from "@/server/db";
 import { roles, users } from "@/server/db/schema";
 import { eq, or } from "drizzle-orm";
 import bcrypt from "bcryptjs";
@@ -47,7 +47,7 @@ export async function POST(req: NextRequest, context: { params: Promise<{}> }) {
       email: email,
       username: username,
       password: hashedPassword,
-      role_id: userRole[0].Id,
+      roleId: userRole[0].Id,
     });
 
     const message = "Successfully registered";

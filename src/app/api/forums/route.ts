@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { db } from "@/server/db";
+import db from "@/server/db";
 import { HttpStatusCode } from "axios";
 import { forums, users } from "@/server/db/schema";
 import { eq, sql } from "drizzle-orm";
@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
     const { title, content } = await req.json();
 
     await db.insert(forums).values({
-      user_id: userId,
+      userId: userId,
       title: title,
       content: content
     });
@@ -82,8 +82,8 @@ export async function GET(req: NextRequest) {
           id: forums.id,
           title: forums.title,
           content: forums.content,
-          user_id: forums.user_id,
-          created_at: forums.created_at,
+          userId: forums.userId,
+          createdAt: forums.createdAt,
         })
         .from(forums)
         .offset(offset)

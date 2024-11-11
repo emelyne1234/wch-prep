@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { z } from "zod";
 
@@ -96,7 +96,7 @@ export const useUpdateProfile = () => {
     setData,
     handleSubmit,
     handleInputChanges,
-    isPending: updateProfileMutation.isLoading,
+    isPending: updateProfileMutation.isPending,
     handleAddressChange,
     removeImage,
     errors,

@@ -6,19 +6,8 @@ import * as schema from "./schema";
 
 dotenv.config();
 
-const DATABASE_URL = process.env.DATABASE_URL;
+const sql = neon(process.env.NEON_DATABASE_URL as string);
 
-const sql = neon(DATABASE_URL!);
+const db = drizzle(sql, { schema });
 
-export const db = drizzle(sql, { schema });
-
-export async function initializeDatabase() {
-  try {
-    await Promise.all([
-      schema.setDefaultRoleTrigger(),
-      schema.setupAuditTriggers(),
-    ]);
-  } catch (error) {
-    console.error("Error setting up database triggers:", error);
-  }
-}
+export default db;
