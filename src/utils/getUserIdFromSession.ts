@@ -17,3 +17,4 @@ export async function getUserIdFromSession(): Promise<string | null> {
     return null;
   }
 }
+
