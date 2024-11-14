@@ -74,14 +74,13 @@ export default function Testimonials() {
                   &quot;{testimonials[currentTestimonial].text}&quot;
                 </p>
 
-                <div className="d-flex align-items-center justify-content-center">
+                <div className="flex items-center justify-center">
                   <Image
                     src={testimonials[currentTestimonial].image}
                     alt={`Profile of ${testimonials[currentTestimonial].author}`}
                     width={70}
                     height={70}
-                    className="rounded-circle shadow-sm"
-                    style={{ objectFit: "cover" }}
+                    className="rounded-full shadow-sm object-cover w-14 h-14"
                   />
                   <div className="ms-3 text-start">
                     <h5 className="mb-1 fw-bold">

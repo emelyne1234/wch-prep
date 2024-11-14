@@ -1,51 +1,73 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
+import { useState } from "react";
 
 const Header = () => {
   const { data: session } = useSession();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="position-fixed w-100 top-0 z-3 bg-white bg-opacity-95 shadow-sm">
-      <nav className="navbar navbar-expand-lg py-2">
-        <div className="container">
-          <Link href="/" className="navbar-brand d-flex align-items-center">
+    <header className="fixed top-0 w-full z-30 bg-white bg-opacity-95 shadow-sm">
+        <div className="max-w-[90vw] mx-auto flex items-center justify-between py-2">
+          <Link href="/" className="flex items-center">
             <Image
               src="/gorilla-icon 1.png"
               alt="WCH Logo"
               width={40}
               height={40}
-              className="me-2 hover:scale-110 transition-transform duration-300"
+              className="mr-2 hover:scale-110 transition-transform duration-300"
             />
-            <span className="font-serif text-xl tracking-wide text-emerald-800 hover:text-emerald-600 transition-colors">
+            <span className="font-serif text-xl tracking-wide text-emerald-800 hover:text-emerald-600 transition-colors hidden md:block">
               Wildlife Conservation Hub
             </span>
           </Link>
 
           <button
-            className="navbar-toggler"
+            className="lg:hidden p-2 rounded-md"
             type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-controls="mobile-menu"
+            aria-expanded={isMenuOpen}
           >
-            <span className="navbar-toggler-icon"></span>
+            <span className="sr-only">Open main menu</span>
+            <div className="w-6 h-6 flex flex-col justify-between items-center">
+              <span
+                className={`block w-6 h-0.5 bg-gray-600 transform transition duration-300 ${
+                  isMenuOpen ? 'rotate-45 translate-y-2.5' : ''
+                }`}
+              />
+              <span
+                className={`block w-6 h-0.5 bg-gray-600 transition duration-300 ${
+                  isMenuOpen ? 'opacity-0' : ''
+                }`}
+              />
+              <span
+                className={`block w-6 h-0.5 bg-gray-600 transform transition duration-300 ${
+                  isMenuOpen ? '-rotate-45 -translate-y-2.5' : ''
+                }`}
+              />
+            </div>
           </button>
 
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ms-auto font-sans">
+          <div
+            className={`${
+              isMenuOpen ? 'block' : 'hidden'
+            } lg:flex lg:items-center  lg:w-auto absolute lg:relative top-full left-0 w-full bg-white lg:bg-transparent`}
+          >
+            <ul className="flex px-4 flex-col lg:flex-row lg:space-x-8 space-y-4 lg:space-y-0 py-3 lg:p-0 font-sans">
               {["About", "Projects", "Community", "Resources", "Contact"].map(
                 (item) => (
-                  <li key={item} className="nav-item">
+                  <li key={item}>
                     <Link
                       href={
                         item === "Community"
                           ? "/community"
                           : `/${item.toLowerCase()}`
                       }
-                      className="nav-link px-4 text-gray-700 hover:text-emerald-600 transition-colors relative group"
+                      className="text-gray-700 hover:text-emerald-600 transition-colors relative group block gap-2 border-b border-gray-200 pb-2 lg:border-b-0"
+                      onClick={() => setIsMenuOpen(false)} 
                     >
                       {item}
                       <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-500 group-hover:w-full transition-all duration-300"></span>
@@ -54,40 +76,39 @@ const Header = () => {
                 )
               )}
             </ul>
-            <ul className="navbar-nav ms-auto font-sans">
+
+            <div className="flex flex-col px-4 gap-2 lg:flex-row lg:items-center lg:ml-8 space--4 lg:space-y-0 lg:space-x-4  lg:p-0">
               {!session ? (
                 <>
-                  <li className="nav-item">
-                    <Link
-                      href="/register"
-                      className="nav-link bg-success text-white px-4 py-2 rounded hover:bg-emerald-600 active:bg-emerald-700 transition-colors"
-                    >
-                      Register
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link
-                      href="/login"
-                      className="nav-link bg-success text-white px-4 py-2 rounded hover:bg-emerald-600 active:bg-emerald-700 transition-colors ms-2"
-                    >
-                      Login
-                    </Link>
-                  </li>
+                  <Link
+                    href="/register"
+                    className="bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600 active:bg-emerald-700 transition-colors text-center"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Register
+                  </Link>
+                  <Link
+                    href="/login"
+                    className="bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600 active:bg-emerald-700 transition-colors text-center"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Login
+                  </Link>
                 </>
               ) : (
-                <li className="nav-item">
-                  <button
-                    onClick={() => signOut()}
-                    className="nav-link bg-success text-white px-4 py-2 rounded hover:bg-emerald-600 active:bg-emerald-700 transition-colors"
-                  >
-                    Logout
-                  </button>
-                </li>
+                <button
+                  onClick={() => {
+                    signOut();
+                    setIsMenuOpen(false);
+                  }}
+                  className="bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600 active:bg-emerald-700 transition-colors w-full lg:w-auto text-center"
+                >
+                  Logout
+                </button>
               )}
-            </ul>
+            </div>
           </div>
         </div>
-      </nav>
     </header>
   );
 };

@@ -1,5 +1,6 @@
 "use client";
 
+import Header from "@/components/Header";
 import Sidebar from "@/components/projects/Sidebar";
 
 export default function ProjectsLayout({
@@ -9,8 +10,9 @@ export default function ProjectsLayout({
 }) {
   return (
     <div className="d-flex">
+      <Header />
       <Sidebar />
-      <div className="container py-5 px-5" style={{ marginLeft: "4.5rem" }}>
+      <div className="container pb-24">
         {children}
       </div>
     </div>
