@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(
       { status: 200, message: "Forum posted successfully", data: null },
-      { status: HttpStatusCode.Accepted }
+      { status: HttpStatusCode.Ok }
     );
   } catch (error: unknown) {
     const Error = error as Error;
@@ -63,7 +63,7 @@ export async function GET(req: NextRequest) {
 
     const { searchParams } = new URL(req.url);
     const page = parseInt(searchParams.get("page") || "1", 10);
-    const pageSize = parseInt(searchParams.get("pageSize") || "3", 10);
+    const pageSize = parseInt(searchParams.get("pageSize") || "10", 10);
     const offset = (page - 1) * pageSize;
 
     const totalRecordsResult = await db

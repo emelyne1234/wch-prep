@@ -74,6 +74,19 @@ export const forumPostLikes = pgTable("forum_likes", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
+export const postCommentReplies = pgTable("postComment_Replies", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  commentId: uuid("comment_Id")
+    .references(() => forumsPostComments.id, { onDelete: "cascade" })
+    .notNull(),
+  userId: uuid("user_id")
+    .references(() => users.id, { onDelete: "cascade" })
+    .notNull(),
+  content: text("content").notNull(),  
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
 export const forumMembers = pgTable("forumMembers", {
   id: uuid("id").primaryKey().defaultRandom(),
   forumId: uuid("forum_id")

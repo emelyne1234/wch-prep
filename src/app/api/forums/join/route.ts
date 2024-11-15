@@ -2,7 +2,7 @@ import db from "@/server/db";
 import { forumMembers } from "@/server/db/schema";
 import { getUserIdFromSession } from "@/utils/getUserIdFromSession";
 import { HttpStatusCode } from "axios";
-import { eq, or } from "drizzle-orm";
+import { and, eq, or } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest ) {
@@ -21,7 +21,7 @@ export async function POST(req: NextRequest ) {
       .select()
       .from(forumMembers)
       .where(
-        or(
+        and(
           eq(forumMembers.userId, userId),
           eq(forumMembers.forumId, forumId)
         )
