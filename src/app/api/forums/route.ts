@@ -29,17 +29,16 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { title, content } = await req.json();
+    const { name, description } = await req.json();
 
     await db.insert(forums).values({
-      userId: userId,
-      title: title,
-      content: content,
+      name: name,
+      description: description,
     });
 
     return NextResponse.json(
       { status: 200, message: "Forum posted successfully", data: null },
-      { status: HttpStatusCode.Accepted }
+      { status: HttpStatusCode.Ok }
     );
   } catch (error: unknown) {
     const Error = error as Error;
@@ -64,7 +63,7 @@ export async function GET(req: NextRequest) {
 
     const { searchParams } = new URL(req.url);
     const page = parseInt(searchParams.get("page") || "1", 10);
-    const pageSize = parseInt(searchParams.get("pageSize") || "3", 10);
+    const pageSize = parseInt(searchParams.get("pageSize") || "10", 10);
     const offset = (page - 1) * pageSize;
 
     const totalRecordsResult = await db
@@ -78,10 +77,8 @@ export async function GET(req: NextRequest) {
     const data = await db
       .select({
         id: forums.id,
-        title: forums.title,
-        content: forums.content,
-        userId: forums.userId,
-        createdAt: forums.createdAt,
+        name: forums.name,
+        description: forums.description
       })
       .from(forums)
       .offset(offset)

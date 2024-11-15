@@ -25,7 +25,6 @@ export default function LoginPage() {
     setLoading(false);
   };
 
-  console.log("spinnerrr", loading);
 
   return (
     <main className="min-vh-100 d-flex justify-content-center align-items-center bg-light py-5">

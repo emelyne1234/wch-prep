@@ -15,7 +15,6 @@ export async function POST(request: NextRequest) {
 
   try {
     const body: z.infer<typeof createProjectSchema> = await request.json();
-    console.log(body);
     const project = await db.insert(projects).values(body);
 
     return NextResponse.json(

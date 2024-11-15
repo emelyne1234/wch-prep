@@ -1,10 +1,9 @@
-import Header from "@/components/Header";
+import React from 'react'
 
-export default function Community() {
+const hello = () => {
   return (
-    <>
-      <Header />
-      <div className="text-4xl mt-32 font-bold bg-red-400">Community</div>
-    </>
-  );
+    <div>hello</div>
+  )
 }
+
+export default hello

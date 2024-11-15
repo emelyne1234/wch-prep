@@ -4,11 +4,11 @@ import {
   users,
   roles,
   forums,
-  forumsComments,
+  forumsPostComments,
   sessions,
   articles,
   articlesComments,
-  forumLikes,
+  forumPostLikes,
   projects,
   projectMembers,
   projectGoals,
@@ -23,22 +23,14 @@ export const userRelations = relations(users, ({ one, many }) => ({
     references: [roles.id],
   }),
   forums: many(forums),
-  forumComments: many(forumsComments),
+  forumComments: many(forumsPostComments),
   articles: many(articles),
   articleComments: many(articlesComments),
-  forumLikes: many(forumLikes),
+  forumLikes: many(forumPostLikes),
   projectMembers: many(projectMembers),
   messages: many(messages),
 }));
 
-export const forumRelations = relations(forums, ({ one, many }) => ({
-  author: one(users, {
-    fields: [forums.userId],
-    references: [users.id],
-  }),
-  comments: many(forumsComments),
-  likes: many(forumLikes),
-}));
 
 export const articleRelations = relations(articles, ({ one, many }) => ({
   author: one(users, {

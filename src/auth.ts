@@ -40,7 +40,6 @@ export const options: NextAuthOptions = {
           }
 
           const user = existingUser[0];
-          console.log("Stored password hash:", user.password);
           const isPasswordValid = await bcrypt.compare(
             credentials.password,
             user.password ?? ""
