@@ -10,7 +10,7 @@ import { usegetForumPosts } from "@/hooks/forum/posts/usegetForum";
 import { usePostOnForum } from "@/hooks/forum/posts/usePosts";
 import { usePostComment } from "@/hooks/forum/posts/usepostComments";
 
-export function Community() {
+export default function Community() {
   const params = useParams();
   const forumId = params?.forumId as string;
 
