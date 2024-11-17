@@ -181,3 +181,108 @@ export const usersInfo = [
         status: "Offline"
     },
 ]
+
+export const monitorTable = [
+    {
+        id: 1,
+        user: "John Doe",
+        email: "john@example.com",
+        image: animal,
+        project: "Project 1",
+        requestDate: "2021-01-01",
+    },
+    {
+        id: 1,
+        user: "John Doe",
+        email: "john@example.com",
+        image: animal,
+        project: "Project 1",
+        requestDate: "2021-01-01",
+    },
+    {
+        id: 1,
+        user: "John Doe",
+        email: "john@example.com",
+        image: animal,
+        project: "Project 1",
+        requestDate: "2021-01-01",
+    },
+    {
+        id: 1,
+        user: "John Doe",
+        email: "john@example.com",
+        image: animal,
+        project: "Project 1",
+        requestDate: "2021-01-01",
+    },
+    {
+        id: 1,
+        user: "John Doe",
+        email: "john@example.com",
+        image: animal,
+        project: "Project 1",
+        requestDate: "2021-01-01",
+    },
+    {
+        id: 1,
+        user: "John Doe",
+        email: "john@example.com",
+        image: animal,
+        project: "Project 1",
+        requestDate: "2021-01-01",
+    },
+    {
+        id: 1,
+        user: "John Doe",
+        email: "john@example.com",
+        image: animal,
+        project: "Project 1",
+        requestDate: "2021-01-01",
+    }
+]
+
+export const resources = [
+    {
+      id: 1,
+      title: 'Introduction to Wildlife Conservation',
+      category: 'conservation',
+      type: 'article',
+      description: 'Learn the fundamentals of wildlife conservation...',
+    },
+    {
+      id: 2,
+      title: 'Introduction to Wildlife Conservation',
+      category: 'conservation',
+      type: 'article',
+      description: 'Learn the fundamentals of wildlife conservation...',
+    },
+    {
+      id: 3,
+      title: 'Teaching Wildlife Conservation',
+      category: 'conservation',
+      type: 'article',
+      description: 'Learn the fundamentals of wildlife conservation...',
+    },
+    {
+      id: 4,
+      title: 'Teaching Wildlife Conservation',
+      category: 'conservation',
+      type: 'article',
+      description: 'Learn the fundamentals of wildlife conservation...',
+    },
+    {
+      id:5,
+      title: 'Introduction to Wildlife Conservation',
+      category: 'conservation',
+      type: 'article',
+      description: 'Learn the fundamentals of wildlife conservation...',
+    },
+    {
+      id: 6,
+      title: 'Introduction to Wildlife Conservation',
+      category: 'conservation',
+      type: 'article',
+      description: 'Learn the fundamentals of wildlife conservation...',
+    },
+    // Add more resources here
+  ]

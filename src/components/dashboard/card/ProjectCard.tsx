@@ -23,11 +23,19 @@ const ProjectCard = ({ key, items, isJoin }: { key: number; items: any, isJoin: 
           <span className="absolute bottom-4 left-0 text-sm text-gray-900 bg-lime-400 px-2 py-1 rounded-r-full">
             {items.date}
           </span>
-          <Link href={`/projects/${items.id}`}>
+          {
+            !isJoin ? (
+              <Link href={`/projects/${items.id}`}>
             <button className="absolute bottom-4 right-4 text-sm text-gray-600 border border-gray-900 rounded-full px-6 py-1 hover:bg-black hover:text-white transition-colors duration-700">
-              {isJoin ? "Join" : "View Details"}
+            View Details
             </button>
           </Link>
+            ):(
+                <button className="absolute bottom-4 right-4 text-sm text-gray-600 border border-gray-900 rounded-full px-6 py-1 hover:bg-black hover:text-white transition-colors duration-700">
+                     Join
+                </button>
+            )
+          }
         </div>
       </div>
     </Card>

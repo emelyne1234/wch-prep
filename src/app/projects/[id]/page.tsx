@@ -10,6 +10,7 @@ import {
 import animal from "../../../assets/animal.jpg";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const page = () => {
   const [showMembers, setShowMembers] = useState(false);
@@ -84,6 +85,42 @@ const page = () => {
                 <p className="text-sm text-gray-900">
                   Date: <span className="font-medium">12/12/2024</span>
                 </p>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        <Accordion type="single" collapsible className="w-full mt-4" defaultValue="item-1">
+            <AccordionItem value="item-1">
+              <AccordionTrigger className="text-lg font-medium bg-gray-200 p-2 rounded-t-lg text-blue-800">
+                Project Needs
+              </AccordionTrigger>
+              <AccordionContent className="flex flex-col gap-3 bg-gray-100 p-3 rounded-b-lg">
+              <div className="flex items-center space-x-2">
+               <Checkbox id="terms" />
+                <label
+                  htmlFor="terms"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                 Making a new animal and protect them all 
+                </label>
+             </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        <Accordion type="single" collapsible className="w-full mt-4" defaultValue="item-1">
+            <AccordionItem value="item-1">
+              <AccordionTrigger className="text-lg font-medium bg-gray-200 p-2 rounded-t-lg text-blue-800">
+                Project Goals
+              </AccordionTrigger>
+              <AccordionContent className="flex flex-col gap-3 bg-gray-100 p-3 rounded-b-lg">
+              <div className="flex items-center space-x-2">
+              <Checkbox id="terms" />
+              <label
+                htmlFor="terms"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                 Making a new animal and protect them all 
+              </label>
+            </div>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
