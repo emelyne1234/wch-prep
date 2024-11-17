@@ -13,6 +13,6 @@ export const getAllForumsByMemberQuery  = () => {
     return useQuery({
         queryKey: ["all forumsMember"], 
         queryFn: getAllForumsByMember, 
-        initialData
+        // initialData
     })
 }
