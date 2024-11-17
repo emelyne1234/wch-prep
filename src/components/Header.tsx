@@ -3,9 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { useState } from "react";
+import { Drawers } from "../components/Drawers";
 
 const Header = () => {
   const { data: session } = useSession();
+  console.log(session);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -53,7 +55,7 @@ const Header = () => {
 
           <div
             className={`${
-              isMenuOpen ? 'block' : 'hidden'
+              isMenuOpen ? 'flexn items-center flex-col' : 'hidden'
             } lg:flex lg:items-center  lg:w-auto absolute lg:relative top-full left-0 w-full bg-white lg:bg-transparent`}
           >
             <ul className="flex px-4 flex-col lg:flex-row lg:space-x-8 space-y-4 lg:space-y-0 py-3 lg:p-0 font-sans">
@@ -96,15 +98,11 @@ const Header = () => {
                   </Link>
                 </>
               ) : (
-                <button
-                  onClick={() => {
-                    signOut();
-                    setIsMenuOpen(false);
-                  }}
-                  className="bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600 active:bg-emerald-700 transition-colors w-full lg:w-auto text-center"
-                >
-                  Logout
-                </button>
+                <div className="cursor-pointer">
+                <Drawers
+                onClickDrawer= {  <Image src={session.user?.image} alt="User Avatar" width={30} height={30} className="rounded-full" />}
+                />
+                </div>
               )}
             </div>
           </div>
