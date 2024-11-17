@@ -9,6 +9,7 @@ import { format } from "date-fns";
 import { usegetForumPosts } from "@/hooks/forum/posts/usegetForum";
 import { usePostOnForum } from "@/hooks/forum/posts/usePosts";
 import { usePostComment } from "@/hooks/forum/posts/usepostComments";
+import { ChatCircle, Heart } from "@phosphor-icons/react";
 
 export default function Community() {
   const params = useParams();
@@ -109,7 +110,7 @@ export default function Community() {
       <div className="container mt-5">
         <div className="text-center">
           <div className="spinner-border text-success" role="status">
-            <span className="visually-hidden">Loading...</span>
+            <span className="visually-hidden">Loading posts...</span>
           </div>
         </div>
       </div>
@@ -127,19 +128,19 @@ export default function Community() {
   }
 
   return (
-    <div className="container mt-5">
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h1 className="text-success">Community Forum</h1>
+    <div className="lg:max-w-[90vw] w-full mt-5">
+
+      <div className="w-full flex flex-col items-center justify-center">
+      <div className="flex items-center justify-between gap-16 mb-8">
+        <h1 className="lg:text-2xl text-sm font-bold text-blue-500">Community Forum</h1>
         <button
           className="btn btn-success"
           onClick={handleShowModal}
           style={{ display: "flex", alignItems: "center" }}
         >
-          <FaPlus className="me-2" /> Create New Post
+          <FaPlus className="lg:text-lg text-xs mr-2" /> Create New Post
         </button>
       </div>
-
-      <div className="row justify-content-center">
         {posts?.data?.map((post: any) => (
           <div
             key={post.postId}
@@ -149,9 +150,9 @@ export default function Community() {
             <div className="card text-dark bg-light shadow border-0">
               <div className="card-header text-white bg-success d-flex align-items-center">
                 <img
-                  src={post.profileImage || "/default.png"}
+                  src={post.profileImage || "https://www.exscribe.com/wp-content/uploads/2021/08/placeholder-image-person-jpg.jpg"}
                   alt="User avatar"
-                  className="rounded-circle me-3"
+                  className="rounded-circle me-3 rounded-full w-10 h-10"
                   width="50"
                   height="50"
                 />
@@ -165,22 +166,22 @@ export default function Community() {
 
               <div className="card-body">
                 <p className="card-text">{post.content}</p>
-                {post.profileImage && (
+                {/* {post.profileImage && (
                   <img
                     src={post.profileImage}
                     alt="Post content"
                     className="img-fluid rounded mt-2"
                     style={{ maxHeight: "300px", objectFit: "cover" }}
                   />
-                )}
+                )} */}
               </div>
 
               <div className="card-footer d-flex justify-content-between align-items-center">
-                <span className="text-muted">
-                  <FaThumbsUp className="me-1 text-success" /> {post.likes || 0}
+              <span className="flex items-center gap-2 cursor-pointer">
+                  <Heart className="text-success" size={20} /> {post.likes || 0}
                 </span>
-                <span className="text-muted" style={{ cursor: "pointer" }}>
-                  <FaCommentAlt className="me-1 text-success" />{" "}
+                <span className="flex items-center gap-2 cursor-pointer">
+                  <ChatCircle className="text-sm text-success" size={20} />{" "}
                   {post.comments?.length || 0} Comments
                 </span>
               </div>
@@ -203,6 +204,7 @@ export default function Community() {
                 className={`form-control ${errors.content ? "is-invalid" : ""}`}
                 id="content"
                 value={formData.content}
+                //@ts-ignore
                 onChange={handleInputChanges}
                 rows={4}
               />
