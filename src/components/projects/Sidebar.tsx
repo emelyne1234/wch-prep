@@ -40,7 +40,8 @@ const Sidebar = () => {
     { title: 'Dashboard', icon: <House weight="fill" />, path: '/projects' },
     { title: 'Create', icon: <Pencil weight="fill" />, path: '/projects/create' },
     { title: 'Join', icon: <ArrowElbowRight weight="fill" />, path: '/projects/join' },
-    { title: 'Settings', icon: <Gear weight="fill" />, path: '/settings' },
+    // { title: 'Settings', icon: <Gear weight="fill" />, path: '/settings' },
+    { title: 'Monitor', icon: <ChartLine weight="fill" />, path: '/projects/monitor' },
   ];
 
   const isPathActive = (path: string) => {

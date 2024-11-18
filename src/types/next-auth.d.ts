@@ -8,6 +8,7 @@ declare module "next-auth" {
       accessToken: string;
       id: string;
       username: string;
+      name: string;
       email: string;
       image: string;
       profileImage: string;
@@ -21,6 +22,7 @@ declare module "next-auth" {
     id: string;
     username: string;
     email: string;
+    name: string;
     image: string;
     roleId: string;
     session_token?: string;
