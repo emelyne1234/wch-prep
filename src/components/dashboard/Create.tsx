@@ -1,7 +1,13 @@
 "use client";
 
 import { useCreateProject } from "@/hooks/useProject";
-import { createProjectSchema, ProjectType } from "@/types/Project";
+import { uploadImageToCloudinary } from "@/services/users/profile";
+import {
+  CreateProjectDTO,
+  createProjectSchemaDTO,
+  projectSchema,
+  ProjectType,
+} from "@/types/Project";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { log } from "next-axiom";
 import { useForm } from "react-hook-form";
@@ -13,29 +19,41 @@ export default function Create() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<ProjectType>({
-    resolver: zodResolver(createProjectSchema),
+  } = useForm<CreateProjectDTO>({
+    resolver: zodResolver(createProjectSchemaDTO),
   });
   console.log("Errors:  ", errors);
   const { mutate: createProject, isPending } = useCreateProject();
-  const onSubmit = async (data: ProjectType) => {
+  const onSubmit = async (data: CreateProjectDTO) => {
     try {
-      createProject(data, {
-        onSuccess: (data) => {
-          toast.success(data.message, {
-            style: {
-              background: "#000",
-              color: "#fff",
-            },
-            duration: 3000,
-            position: "bottom-left",
-          });
-          reset();
-        },
-        onError: (error) => {
-          toast.error(`Error creating project: ${error.message}`);
-        },
-      });
+      if (!data.image || data.image.length === 0) {
+        throw new Error("Please select an image");
+      }
+
+      const file = data.image[0];
+      console.log("File: ", file);
+
+      const imageUrl = await uploadImageToCloudinary(file);
+
+      createProject(
+        { ...data, image: imageUrl },
+        {
+          onSuccess: (data) => {
+            toast.success(data.message, {
+              style: {
+                background: "#000",
+                color: "#fff",
+              },
+              duration: 3000,
+              position: "bottom-left",
+            });
+            reset();
+          },
+          onError: (error) => {
+            toast.error(`Error creating project: ${error.message}`);
+          },
+        }
+      );
     } catch (error) {
       log.error("Error creating project:", error as Error);
     }
@@ -48,6 +66,22 @@ export default function Create() {
       </h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="grid gap-6">
+        <div className="w-full">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Project Image
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            {...register("image")}
+            className="w-full rounded-md py-2 px-3 border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+          />
+          {errors.image && (
+            <p className="mt-1 text-sm text-red-600">
+              {errors.image.message?.toString()}
+            </p>
+          )}
+        </div>
         <div className="w-full">
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Title

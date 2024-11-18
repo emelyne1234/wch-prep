@@ -11,7 +11,10 @@
     "migrate": "drizzle-kit migrate",
     "studio": "pnpm drizzle-kit studio --port 3030 --verbose",
     "push": "drizzle-kit push",
-    "format": "prettier src/**/*.{ts,tsx} --write"
+    "format": "prettier src/**/*.{ts,tsx} --write",
+    "analyze": "cross-env ANALYZE=true next build",
+    "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
+    "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -30,6 +33,7 @@
     "class-variance-authority": "^0.7.0",
     "cloudinary": "^2.5.1",
     "clsx": "^2.1.1",
+    "cross-env": "^7.0.3",
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.5",
     "draft-js": "^0.11.7",
@@ -60,12 +64,14 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^14.0.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/draft-js": "^0.11.18",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/react-draft-wysiwyg": "^1.13.8",
+    "critters": "^0.0.20",
     "eslint": "^8.57.1",
     "eslint-config-next": "15.0.2",
     "eslint-config-prettier": "^9.0.0",

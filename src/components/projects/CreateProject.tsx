@@ -1,7 +1,11 @@
 "use client";
 
 import { useCreateProject } from "@/hooks/useProject";
-import { createProjectSchema, ProjectType } from "@/types/Project";
+import {
+  CreateProjectDTO,
+  createProjectSchemaDTO,
+  ProjectType,
+} from "@/types/Project";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { log } from "next-axiom";
 import { useForm } from "react-hook-form";
@@ -16,13 +20,13 @@ export default function CreateProject({ onClose }: CreateProjectProps) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ProjectType>({
-    resolver: zodResolver(createProjectSchema),
+  } = useForm<CreateProjectDTO>({
+    resolver: zodResolver(createProjectSchemaDTO),
   });
 
   const { mutate: createProject, isPending } = useCreateProject();
 
-  const onSubmit = async (data: ProjectType) => {
+  const onSubmit = async (data: CreateProjectDTO) => {
     try {
       createProject(data, {
         onSuccess: () => {
@@ -42,10 +46,7 @@ export default function CreateProject({ onClose }: CreateProjectProps) {
     <>
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="fw-bold">Create New Project</h2>
-        <button 
-          className="btn btn-outline-secondary"
-          onClick={onClose}
-        >
+        <button className="btn btn-outline-secondary" onClick={onClose}>
           Cancel
         </button>
       </div>
@@ -59,7 +60,9 @@ export default function CreateProject({ onClose }: CreateProjectProps) {
             placeholder="Project Title"
           />
           {errors.title && (
-            <p className="text-danger small">{errors.title.message}</p>
+            <p className="text-danger small">
+              {errors.title.message?.toString()}
+            </p>
           )}
         </div>
 
@@ -72,7 +75,9 @@ export default function CreateProject({ onClose }: CreateProjectProps) {
             placeholder="Project Description"
           />
           {errors.description && (
-            <p className="text-danger small">{errors.description.message}</p>
+            <p className="text-danger small">
+              {errors.description.message?.toString()}
+            </p>
           )}
         </div>
 
@@ -108,7 +113,9 @@ export default function CreateProject({ onClose }: CreateProjectProps) {
             className="form-control"
           />
           {errors.startDate && (
-            <p className="text-danger small">{errors.startDate.message}</p>
+            <p className="text-danger small">
+              {errors.startDate.message?.toString()}
+            </p>
           )}
         </div>
 
@@ -122,7 +129,9 @@ export default function CreateProject({ onClose }: CreateProjectProps) {
             className="form-control"
           />
           {errors.endDate && (
-            <p className="text-danger small">{errors.endDate.message}</p>
+            <p className="text-danger small">
+              {errors.endDate.message?.toString()}
+            </p>
           )}
         </div>
 
@@ -149,6 +158,21 @@ export default function CreateProject({ onClose }: CreateProjectProps) {
         </div>
 
         <div className="col-12">
+          <label className="form-label">Project Image</label>
+          <input
+            type="file"
+            accept="image/*"
+            {...register("image")}
+            className="form-control"
+          />
+          {errors.image && (
+            <p className="text-danger small">
+              {errors.image.message?.toString()}
+            </p>
+          )}
+        </div>
+
+        <div className="col-12">
           <button
             type="submit"
             disabled={isPending}
@@ -166,4 +190,4 @@ export default function CreateProject({ onClose }: CreateProjectProps) {
       </form>
     </>
   );
-} 
+}

@@ -31,18 +31,18 @@ export const roles = pgTable("roles", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 export const forums = pgTable("forums", {
-  id: uuid("id").primaryKey().defaultRandom(),  
+  id: uuid("id").primaryKey().defaultRandom(),
   name: varchar("name", { length: 255 }).notNull(),
-  description: text("description"), 
-  created_at: timestamp("created_at").defaultNow(), 
+  description: text("description"),
+  created_at: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 export const posts = pgTable("posts", {
   id: uuid("id").primaryKey().defaultRandom(),
   userId: uuid("user_id").references(() => users.id, { onDelete: "cascade" }),
   forumId: uuid("forum_id")
-  .references(() => forums.id, { onDelete: "cascade" })
-  .notNull(),
+    .references(() => forums.id, { onDelete: "cascade" })
+    .notNull(),
   content: text("content").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
@@ -60,7 +60,6 @@ export const forumsPostComments = pgTable("forums_comments", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
-
 
 export const forumPostLikes = pgTable("forum_likes", {
   id: uuid("id").primaryKey().defaultRandom(),
@@ -82,7 +81,7 @@ export const postCommentReplies = pgTable("postComment_Replies", {
   userId: uuid("user_id")
     .references(() => users.id, { onDelete: "cascade" })
     .notNull(),
-  content: text("content").notNull(),  
+  content: text("content").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
@@ -148,7 +147,6 @@ export const articlesComments = pgTable("articles_comments", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
-
 export const animals = pgTable("animals", {
   id: uuid("id").primaryKey().defaultRandom(),
   name: varchar("name", { length: 100 }).notNull(),
@@ -171,6 +169,7 @@ export const projects = pgTable("projects", {
   impactMetrics: jsonb("impact_metrics").notNull(),
   fundingStatus: varchar("funding_status", { length: 10 }).notNull(),
   evaluation: text("evaluation").notNull(),
+  image: varchar("image", { length: 300 }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
   createdBy: uuid("created_by")

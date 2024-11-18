@@ -45,7 +45,7 @@ export async function POST(
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(options);
@@ -56,11 +56,18 @@ export async function GET(
       );
     }
 
-    const projectId = params.id;
-    const projectMessages = await db
-      .select()
-      .from(messages)
-      .where(eq(messages.projectId, projectId));
+    const projectId = (await params).id;
+    const projectMessages = await db.query.messages.findMany({
+      where: eq(messages.projectId, projectId),
+      with: {
+        sender: {
+          columns: {
+            name: true,
+            image: true,
+          },
+        },
+      },
+    });
 
     return NextResponse.json(
       {

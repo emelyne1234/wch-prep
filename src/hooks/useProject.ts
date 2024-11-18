@@ -1,4 +1,4 @@
-import { ProjectType } from "@/types/Project";
+import { CreateProjectDTO, ProjectType } from "@/types/Project";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -17,8 +17,8 @@ export const useGetProjects = () => {
 };
 
 export const useCreateProject = () => {
-  return useMutation<ProjectResponse, Error, ProjectType>({
-    mutationFn: async (data: ProjectType) => {
+  return useMutation<ProjectResponse, Error, CreateProjectDTO>({
+    mutationFn: async (data: CreateProjectDTO) => {
       const formattedData = {
         ...data,
         endDate: data.endDate
