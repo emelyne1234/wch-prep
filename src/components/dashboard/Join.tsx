@@ -1,15 +1,29 @@
-import React from 'react'
-import { joinCard } from './constant'
-import ProjectCard from './card/ProjectCard'
+"use client";
+
+import React, { useState } from "react";
+import ProjectCard from "./card/ProjectCard";
+import { useGetProjects, useGetUserProjects } from "@/hooks/useProject";
+import { ProjectType } from "@/types/Project";
 
 const Join = () => {
-  return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {joinCard.map((item) => (
-                <ProjectCard key={item.id} items={item} isJoin={true}/>
-            ))}
-        </div>
-  )
-}
+  const { data: projects } = useGetProjects();
+  const { data: userProjects } = useGetUserProjects();
 
-export default Join
+  // compare userProjects with projects and set filteredProjects
+  const filteredProjects = projects?.filter((project) => {
+    return !userProjects?.data?.some(
+      (userProject) => userProject.projectId === project.projectId
+    );
+  });
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {filteredProjects &&
+        filteredProjects.map((item: ProjectType, index: number) => (
+          <ProjectCard key={index} item={item} />
+        ))}
+    </div>
+  );
+};
+
+export default Join;

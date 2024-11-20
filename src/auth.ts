@@ -72,7 +72,7 @@ export const options: NextAuthOptions = {
       if (account?.provider === "google" || account?.provider === "github") {
         const email = user.email || "";
         const image = user.image || "";
-
+        console.log("user", user);
         const existingUser = await db
           .select()
           .from(users)
@@ -89,13 +89,13 @@ export const options: NextAuthOptions = {
           await db.insert(users).values({
             email,
             profileImage: image,
-            username: "",
+            username: user.name,
             password: "",
             roleId: userRole[0].Id,
           });
         } else {
           user.id = existingUser[0].id;
-          user.username = existingUser[0].username;
+          user.username = user.name;
           user.roleId = existingUser[0].roleId;
         }
       }
@@ -106,7 +106,7 @@ export const options: NextAuthOptions = {
       if (user) {
         token.id = user.id;
         token.email = user.email;
-        token.username = user.username;
+        token.username = user.name;
         token.role = user.roleId;
       }
       return token;
@@ -115,7 +115,7 @@ export const options: NextAuthOptions = {
       if (token && session.user) {
         session.user.id = token.id as string;
         session.user.email = token.email as string;
-        session.user.username = token.username as string;
+        session.user.username = token.name as string;
         session.user.roleId = token.role as string;
       }
       return session;

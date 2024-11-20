@@ -58,7 +58,6 @@ export const usegetForumPosts = (forumId: string) => {
       queryFn: () => getpostOnForum(forumId)
     });
 
-    console.log(data)
     return {
       posts: data ?? [],
       isFetching,

@@ -1,21 +1,14 @@
-"use client";
-import { useJoinProject } from "@/hooks/useProject";
 import { ProjectType } from "@/types/Project";
 import Image from "next/image";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
-const ProjectCard = ({ item }: { item: ProjectType }) => {
-  const { mutate: joinProject, isPending } = useJoinProject();
-  const router = useRouter();
-  const handleJoin = (projectId: string) => {
-    joinProject(projectId, {
-      onSuccess: () => {
-        toast.success("Joined project successfully");
-        router.push(`/projects/${projectId}`);
-      },
-    });
-  };
+const UserProjectCard = ({
+  item,
+  isJoin = true,
+}: {
+  item: ProjectType;
+  isJoin: boolean;
+}) => {
   return (
     <div
       key={item.projectId}
@@ -40,20 +33,26 @@ const ProjectCard = ({ item }: { item: ProjectType }) => {
           <h2 className="text-xl font-semibold">{item.title}</h2>
           <span className="text-sm text-blue-800">{item.location}</span>
         </div>
-        <p className="text-sm text-gray-500 text-wrap">{item.description}</p>
+        <p className="text-sm text-gray-500 text-wrap">
+          {item.description.length > 100
+            ? `${item.description.substring(0, 100)}...`
+            : item.description}
+        </p>
         <div className="flex justify-between pt-4">
           <span className="absolute bottom-4 left-0 text-sm text-gray-900 bg-lime-400 px-2 py-1 rounded-r-full">
-            {new Date(item.startDate).toLocaleDateString()}
+            {item.startDate
+              ? new Date(item.startDate).toLocaleDateString()
+              : ""}
           </span>
-          <button
-            onClick={() => handleJoin(item.projectId as string)}
-            className="absolute bottom-4 right-4 text-sm text-gray-600 border border-gray-900 rounded-full px-6 py-1 hover:bg-black hover:text-white transition-colors duration-700">
-            {isPending ? "Joining..." : "Join"}
-          </button>
+          <Link href={`/projects/${item.projectId}`}>
+            <button className="absolute bottom-4 right-4 text-sm text-gray-600 border border-gray-900 rounded-full px-6 py-1 hover:bg-black hover:text-white transition-colors duration-700">
+              View Details
+            </button>
+          </Link>
         </div>
       </div>
     </div>
   );
 };
 
-export default ProjectCard;
+export default UserProjectCard;
