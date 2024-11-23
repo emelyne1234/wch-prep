@@ -7,7 +7,6 @@ import { Drawers } from "../components/Drawers";
 
 const Header = () => {
   const { data: session } = useSession();
-  console.log(session);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -59,7 +58,7 @@ const Header = () => {
             } lg:flex lg:items-center  lg:w-auto absolute lg:relative top-full left-0 w-full bg-white lg:bg-transparent`}
           >
             <ul className="flex px-4 flex-col lg:flex-row lg:space-x-8 space-y-4 lg:space-y-0 py-3 lg:p-0 font-sans">
-              {["About", "Projects", "Community", "Resources", "Contact"].map(
+              {["Explore", "Projects", "Community", "Resources", "Contact"].map(
                 (item) => (
                   <li key={item}>
                     <Link

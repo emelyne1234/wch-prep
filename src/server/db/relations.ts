@@ -13,7 +13,7 @@ import {
   projectMembers,
   projectGoals,
   projectNeeds,
-  messages
+  messages,
 } from "./schema";
 
 export const userRelations = relations(users, ({ one, many }) => ({
@@ -30,7 +30,6 @@ export const userRelations = relations(users, ({ one, many }) => ({
   projectMembers: many(projectMembers),
   messages: many(messages),
 }));
-
 
 export const articleRelations = relations(articles, ({ one, many }) => ({
   author: one(users, {
