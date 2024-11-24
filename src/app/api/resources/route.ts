@@ -4,40 +4,7 @@ import { HttpStatusCode } from "axios";
 import { resources } from "@/server/db/schema";
 import { sql } from "drizzle-orm";
 import { getUserIdFromSession } from "@/utils/getUserIdFromSession";
-
-export async function POST(req: NextRequest) {
-  try {
-    const userId = await getUserIdFromSession();
-
-    if (!userId) {
-      return NextResponse.json(
-        { status: 401, message: "Unauthorized", data: null },
-        { status: HttpStatusCode.Unauthorized }
-      );
-    }
-
-    const { title, description, content_url, type } = await req.json();
-
-    await db.insert(resources).values({
-      title: title,
-      description: description,
-      contentUrl: content_url,
-      type: type,
-    });
-
-    return NextResponse.json(
-      { status: 200, message: "resources posted successfully", data: null },
-      { status: HttpStatusCode.Accepted }
-    );
-  } catch (error: unknown) {
-    const Error = error as Error;
-    return NextResponse.json({
-      status: 500,
-      data: null,
-      message: Error.message,
-    });
-  }
-}
+import { log } from "next-axiom";
 
 export async function GET(req: NextRequest) {
   try {
@@ -91,6 +58,43 @@ export async function GET(req: NextRequest) {
       status: 500,
       data: null,
       message: Error.message,
+    });
+  }
+}
+
+export async function POST(req: NextRequest) {
+  try {
+    const userId = await getUserIdFromSession();
+
+    if (!userId) {
+      return NextResponse.json(
+        { status: 401, message: "Unauthorized", data: null },
+        { status: HttpStatusCode.Unauthorized }
+      );
+    }
+
+    // TODO: Validate the request body
+    const body = await req.json();
+    const { title, description, contentUrl, type, category } = body;
+
+    await db.insert(resources).values({
+      title: title,
+      description: description,
+      contentUrl: contentUrl,
+      type: type,
+      category: category,
+    });
+
+    return NextResponse.json(
+      { status: 200, message: "resources posted successfully", data: null },
+      { status: HttpStatusCode.Accepted }
+    );
+  } catch (error: unknown) {
+    log.error("Failed to create resources", error as Error);
+    return NextResponse.json({
+      status: 500,
+      data: null,
+      message: (error as Error).message,
     });
   }
 }

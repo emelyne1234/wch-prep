@@ -239,6 +239,7 @@ export const resources = pgTable("resources", {
   id: uuid("id").primaryKey().defaultRandom(),
   title: varchar("title", { length: 100 }).notNull(),
   description: text("description").notNull(),
+  category: varchar("category", { length: 100 }).notNull(),
   type: varchar("type", {
     enum: ["video", "article", "infographic", "pdf"],
     length: 30,
