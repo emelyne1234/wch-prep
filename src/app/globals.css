@@ -102,3 +102,7 @@ a {
     @apply bg-background text-foreground;
   }
 }
+.mdxeditor {
+  border: none;
+  outline: none;
+}
