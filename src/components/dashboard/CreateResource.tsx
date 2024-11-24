@@ -33,7 +33,7 @@ const CreateResource = () => {
       [name]: value
     }));
   };
-
+ 
   const handleDescriptionChange = (content: string) => {
     setFormData(prev => ({
       ...prev,
@@ -99,31 +99,31 @@ const CreateResource = () => {
         <div>
           <label className="block mb-2">Description</label>
           <div className="border rounded">
-            <MDXEditor 
-              onChange={handleDescriptionChange}
-              markdown=""
-              placeholder="Enter description..."
-              plugins={[
-                toolbarPlugin({
-                  toolbarContents: () => (
-                    <>
-                      <UndoRedo />
-                      <BoldItalicUnderlineToggles />
-                      <BlockTypeSelect />
-                      <CreateLink />
-                      <ListsToggle />
-                    </>
-                  )
-                }),
-                headingsPlugin(),
-                listsPlugin(),
-                quotePlugin(),
-                thematicBreakPlugin(),
-                linkPlugin(),
-                markdownShortcutPlugin(),
-              ]}
-              className="min-h-[150px] p-2"
-            />
+          <MDXEditor 
+  onChange={handleDescriptionChange}
+  markdown=""
+  placeholder="Enter description..."
+  plugins={[
+    toolbarPlugin({
+      toolbarContents: () => (
+        <>
+          <UndoRedo />
+          <BoldItalicUnderlineToggles />
+          <BlockTypeSelect />
+          <CreateLink />
+          <ListsToggle />
+        </>
+      )
+    }),
+    headingsPlugin(),
+    listsPlugin(),
+    quotePlugin(),
+    thematicBreakPlugin(),
+    linkPlugin(),
+    markdownShortcutPlugin(),
+  ]}
+  className="min-h-[150px] p-2 prose prose-slate max-w-none [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4"
+/>
           </div>
         </div>
 
