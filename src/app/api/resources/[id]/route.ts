@@ -5,6 +5,29 @@ import { eq } from "drizzle-orm";
 import { HttpStatusCode } from "axios";
 import { getUserIdFromSession } from "@/utils/getUserIdFromSession";
 
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params;
+
+    const resource = await db.query.resources.findFirst({
+      where: eq(resources.id, id),
+    });
+    if (!resource) {
+      return NextResponse.json(
+        { message: "Resource not found", status: 200 },
+        { status: HttpStatusCode.BadRequest }
+      );
+    }
+    return NextResponse.json(resource, { status: 200 });
+  } catch (error) {
+    const Error = error as Error;
+    return NextResponse.json({ message: Error.message }, { status: 500 });
+  }
+}
+
 export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -23,12 +46,11 @@ export async function PATCH(
 
     const body = await req.json();
 
-    const existingResources = await db
-      .select()
-      .from(resources)
-      .where(eq(resources.id, id));
+    const existingResources = await db.query.resources.findFirst({
+      where: eq(resources.id, id),
+    });
 
-    if (existingResources.length === 0) {
+    if (!existingResources) {
       return NextResponse.json(
         { message: "Resources not found", status: 200 },
         { status: HttpStatusCode.BadRequest }
