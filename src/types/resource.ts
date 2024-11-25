@@ -11,7 +11,7 @@ export const resourceSchema = createInsertSchema(resources).extend({
   description: z
     .string({ message: "Description is required" })
     .min(1)
-    .max(1000),
+    .max(10000),
   title: z.string({ message: "Title is required" }).min(1).max(100),
 });
 

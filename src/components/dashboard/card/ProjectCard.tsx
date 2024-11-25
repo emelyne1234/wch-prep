@@ -32,7 +32,7 @@ const ProjectCard = ({ item }: { item: ProjectType }) => {
           alt={item.title}
           width={300}
           height={150}
-          className="w-full h-full object-cover rounded-xl group-hover:scale-[1.01] transition-all duration-700 hover:rounded-xl"
+          className="w-full h-[300px] object-cover rounded-xl group-hover:scale-[1.01] transition-all duration-700 hover:rounded-xl"
         />
       </div>
       <div className="flex flex-col gap-2">

@@ -24,9 +24,21 @@ import { uploadImageToCloudinary } from "@/services/users/profile";
 import toast from "react-hot-toast";
 import { log } from "next-axiom";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function CreateResource() {
   const router = useRouter();
+  const { status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      router.push("/login");
+    },
+  });
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
   const {
     register,
     handleSubmit,
@@ -81,7 +93,7 @@ export default function CreateResource() {
       log.error("Error creating resource:", error as Error);
     }
   };
- 
+
   const handleDescriptionChange = (content: string) => {
     setValue("description", content);
   };
@@ -147,31 +159,31 @@ export default function CreateResource() {
         <div>
           <label className="block mb-2">Description</label>
           <div className="border rounded">
-          <MDXEditor 
-  onChange={handleDescriptionChange}
-  markdown=""
-  placeholder="Enter description..."
-  plugins={[
-    toolbarPlugin({
-      toolbarContents: () => (
-        <>
-          <UndoRedo />
-          <BoldItalicUnderlineToggles />
-          <BlockTypeSelect />
-          <CreateLink />
-          <ListsToggle />
-        </>
-      )
-    }),
-    headingsPlugin(),
-    listsPlugin(),
-    quotePlugin(),
-    thematicBreakPlugin(),
-    linkPlugin(),
-    markdownShortcutPlugin(),
-  ]}
-  className="min-h-[150px] p-2 prose prose-slate max-w-none [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4"
-/>
+            <MDXEditor
+              onChange={handleDescriptionChange}
+              markdown=""
+              placeholder="Enter description..."
+              plugins={[
+                toolbarPlugin({
+                  toolbarContents: () => (
+                    <>
+                      <UndoRedo />
+                      <BoldItalicUnderlineToggles />
+                      <BlockTypeSelect />
+                      <CreateLink />
+                      <ListsToggle />
+                    </>
+                  ),
+                }),
+                headingsPlugin(),
+                listsPlugin(),
+                quotePlugin(),
+                thematicBreakPlugin(),
+                linkPlugin(),
+                markdownShortcutPlugin(),
+              ]}
+              className="min-h-[150px] p-2 prose prose-slate max-w-none [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4"
+            />
           </div>
           {errors.description && (
             <span className="text-red-500">{errors.description.message}</span>
@@ -191,7 +203,14 @@ export default function CreateResource() {
           type="submit"
           disabled={isPending}
           className="w-full md:w-auto px-4 py-2 text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200">
-          {isPending ? "Creating..." : "Create Resource"}
+          {isPending ? (
+            <div className="flex items-center justify-center gap-2">
+              <div className="w-5 h-5 border-t-2 border-b-2 border-white rounded-full animate-spin" />
+              <span>Creating...</span>
+            </div>
+          ) : (
+            "Create Resource"
+          )}
         </button>
       </form>
     </div>

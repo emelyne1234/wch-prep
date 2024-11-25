@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import db from "@/server/db";
 import { HttpStatusCode } from "axios";
+import { desc } from "drizzle-orm";
 import { resources } from "@/server/db/schema";
 import { sql } from "drizzle-orm";
 import { getUserIdFromSession } from "@/utils/getUserIdFromSession";
@@ -36,10 +37,14 @@ export async function GET(req: NextRequest) {
         title: resources.title,
         contentUrl: resources.contentUrl,
         type: resources.type,
+        category: resources.category,
+        createdAt: resources.createdAt,
+        description: resources.description,
       })
       .from(resources)
       .offset(offset)
-      .limit(pageSize);
+      .limit(pageSize)
+      .orderBy(desc(resources.createdAt));
 
     return NextResponse.json({
       status: 200,

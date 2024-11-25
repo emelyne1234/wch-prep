@@ -36,3 +36,22 @@ export const useGetResources = (page: number, pageSize: number) => {
     },
   });
 };
+
+export const useGetResourceById = (id: string) => {
+  return useQuery<ResourceType>({
+    queryKey: ["resources", id],
+    queryFn: async () => {
+      const response = await axios.get(`/api/resources/${id}`);
+      return response.data;
+    },
+  });
+};
+
+export const useDeleteResource = () => {
+  return useMutation({
+    mutationFn: async (id: string) => {
+      const response = await axios.delete(`/api/resources/${id}`);
+      return response.data;
+    },
+  });
+};
