@@ -95,6 +95,13 @@ const Header = () => {
                   >
                     Login
                   </Link>
+                  <Link
+                    href="/profile"
+                    className="bg-emerald-500 text-white px-4 py-2 rounded transition-colors text-center"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Profile
+                  </Link>
                 </>
               ) : (
                 <div className="cursor-pointer">
